@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rustamov Bekzod | Digital Portfolio</title>
+  <meta name="description" content="Bekzod Rustamov is a front-end developer and UI/UX designer creating modern, responsive, and high-performing web experiences.">
+  <meta name="keywords" content="frontend developer, UI/UX designer, portfolio website, web design, JavaScript, HTML, CSS">
+  <title>Bekzod Rustamov | Frontend Developer & UI/UX Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
   <style>
 /* ============================================================
    RESET & ROOT — DARK MODE (default)
@@ -153,6 +156,7 @@ html.light .btn-cv {
 #cert-overlay {
   position:fixed; inset:0;
   background:rgba(5,5,10,.9);
+  -webkit-backdrop-filter:blur(18px);
   backdrop-filter:blur(18px);
   z-index:5001;
   display:flex; align-items:center; justify-content:center;
@@ -410,6 +414,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   font-family:Arial,sans-serif;
   font-size:1.8rem; font-weight:800;
   color:var(--purple);
+  -webkit-user-select:none;
   user-select:none;
   animation:ongga-aylanish 6s linear infinite;
 }
@@ -489,7 +494,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   display:grid; grid-template-columns:1.15fr .85fr;
   gap:48px; align-items:center;
 }
-.hero-copy { max-width:660px; }
+.hero-copy { max-width:660px; display:flex; flex-direction:column; align-items:flex-start; }
 .badge {
   display:inline-flex; align-items:center; gap:8px;
   background:rgba(99,102,241,.1);
@@ -512,7 +517,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 .main-title {
   font-size:clamp(3rem,5.5vw,5.2rem);
   font-weight:800; line-height:.96;
-  margin:28px 0 22px;
+  margin:12px 0 18px;
   letter-spacing:-.02em;
 }
 .gradient-text {
@@ -523,7 +528,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 }
 .subtitle {
   color:var(--muted); font-size:1.05rem;
-  max-width:540px; margin-bottom:36px; line-height:1.75;
+  max-width:540px; margin-bottom:28px; line-height:1.75;
 }
 .cta-buttons { display:flex; flex-wrap:wrap; gap:14px; }
 
@@ -544,7 +549,8 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   background: rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,.1);
   border-radius:32px;
-  -webkit-backdrop-filter:blur(24px); backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  backdrop-filter:blur(24px);
   box-shadow:0 40px 100px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
   overflow:hidden;
   position:relative;
@@ -648,6 +654,126 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   color:var(--muted); font-size:1rem; line-height:1.85;
   max-width:600px; margin-bottom:24px;
 }
+.about-highlight-list {
+  display:grid; gap:12px; margin:24px 0 22px;
+}
+.about-highlight-item {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:14px 16px; border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  color:var(--muted); line-height:1.7;
+}
+.about-highlight-item strong { color:var(--text); }
+.about-highlight-item svg { flex-shrink:0; margin-top:3px; color:var(--purple); }
+.hero-signature {
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px;
+  margin:10px 0 0;
+}
+.signature-mark {
+  font-family:'Caveat', cursive;
+  font-size:1.9rem; font-weight:700;
+  color:#f8f7ff; letter-spacing:.02em;
+}
+.signature-pill {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:7px 12px; border-radius:999px;
+  background:rgba(99,102,241,.12);
+  border:1px solid rgba(99,102,241,.28);
+  color:#c7d2fe; font-size:.72rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.1em;
+}
+.signature-pill::before {
+  content:''; width:7px; height:7px; border-radius:50%;
+  background:var(--pink); box-shadow:0 0 8px rgba(236,72,153,.7);
+}
+.insights-section {
+  padding:32px 0 0;
+}
+.insight-grid {
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;
+}
+.insight-card {
+  background:linear-gradient(135deg, rgba(99,102,241,.10), rgba(236,72,153,.08));
+  border:1px solid rgba(146,120,240,.18);
+  border-radius:22px; padding:22px;
+}
+.insight-card h3 {
+  font-size:1rem; font-weight:700; color:#e0e7ff; margin-bottom:8px;
+}
+.insight-card p {
+  color:var(--muted); font-size:.9rem; line-height:1.75;
+}
+.journey-section {
+  padding:36px 0 120px; position:relative; z-index:1;
+}
+.journey-shell {
+  display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:26px; align-items:stretch;
+}
+.journey-card {
+  background:linear-gradient(135deg, rgba(99,102,241,.12), rgba(236,72,153,.08));
+  border:1px solid rgba(146,120,240,.2);
+  border-radius:28px; padding:32px;
+  box-shadow:0 18px 60px rgba(99,102,241,.12);
+}
+.journey-card h3 {
+  font-size:1.5rem; font-weight:800; margin:10px 0 12px; color:#f5f7ff;
+}
+.journey-card p {
+  color:var(--muted); font-size:.95rem; line-height:1.8;
+}
+.xp-card {
+  margin-top:24px; padding:18px 20px; border-radius:20px;
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+}
+.xp-top { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:10px; }
+.xp-label { font-size:.76rem; text-transform:uppercase; letter-spacing:.12em; color:#c7d2fe; font-weight:700; }
+.xp-value { font-size:.95rem; font-weight:800; color:#fff; }
+.xp-bar {
+  height:10px; width:100%; border-radius:999px; overflow:hidden;
+  background:rgba(255,255,255,.08); position:relative;
+}
+.xp-fill {
+  height:100%; width:0%; border-radius:inherit;
+  background:var(--grad); box-shadow:0 0 20px rgba(146,120,240,.35);
+  transition:width 1.3s cubic-bezier(.22,1,.36,1);
+}
+.xp-meta {
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  margin-top:10px; color:var(--muted); font-size:.78rem;
+}
+.timeline {
+  display:grid; gap:16px; align-content:start;
+}
+.timeline-item {
+  position:relative; display:flex; gap:14px; padding:18px 20px;
+  background:var(--card); border:1px solid var(--border); border-radius:20px;
+  min-height:108px; transform:translateY(20px); opacity:0;
+  transition:transform .55s ease, opacity .55s ease, border-color .3s ease;
+}
+.timeline-item.visible { opacity:1; transform:none; }
+.timeline-item.active {
+  border-color:rgba(146,120,240,.35); box-shadow:0 12px 40px rgba(99,102,241,.12);
+}
+.timeline-item::before {
+  content:''; position:absolute; left:25px; top:44px; bottom:-18px;
+  width:2px; background:linear-gradient(180deg, rgba(99,102,241,.7), transparent);
+}
+.timeline-item:last-child::before { display:none; }
+.timeline-dot {
+  width:12px; height:12px; border-radius:50%; background:var(--pink);
+  box-shadow:0 0 0 6px rgba(236,72,153,.15); margin-top:6px; flex-shrink:0;
+}
+.timeline-year {
+  display:inline-block; margin-bottom:6px; font-size:.72rem; font-weight:800;
+  letter-spacing:.12em; color:var(--purple); text-transform:uppercase;
+}
+.timeline-content h4 {
+  font-size:1rem; font-weight:700; color:#e0e7ff; margin-bottom:6px;
+}
+.timeline-content p {
+  color:var(--muted); font-size:.9rem; line-height:1.7;
+}
 /* Skills */
 .skills-grid { display:grid; gap:14px; margin-top:10px; }
 .skill-item { display:grid; gap:6px; }
@@ -740,7 +866,13 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 }
 .card-body { padding:24px; position:relative; z-index:1; }
 .card-body h3 { font-size:1.2rem; font-weight:700; color:#e0e7ff; margin-bottom:8px; }
-.card-body p  { color:var(--muted); font-size:.9rem; line-height:1.7; margin-bottom:20px; }
+.card-body p  { color:var(--muted); font-size:.9rem; line-height:1.7; margin-bottom:14px; }
+.project-summary {
+  display:grid; gap:8px; margin-bottom:16px;
+  padding-top:10px; border-top:1px solid var(--border);
+  font-size:.84rem; color:var(--muted);
+}
+.project-summary strong { color:var(--text); }
 .card-footer {
   display:flex; align-items:center; justify-content:space-between;
   border-top:1px solid var(--border); padding-top:16px;
@@ -800,11 +932,27 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   border-color:rgba(146,120,240,.4);
   transform:translateY(-2px);
 }
+.contact-methods {
+  display:grid; gap:12px; margin:24px 0 20px;
+}
+.contact-method {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:14px 16px; border-radius:16px;
+  background:rgba(255,255,255,.04); border:1px solid var(--border);
+}
+.contact-method strong { display:block; color:var(--text); font-size:.95rem; margin-bottom:2px; }
+.contact-method span { color:var(--muted); font-size:.9rem; line-height:1.5; }
+.contact-method a {
+  color:var(--purple); font-weight:700; white-space:nowrap;
+}
+.contact-note {
+  color:var(--muted); font-size:.92rem; line-height:1.75; margin-bottom:8px;
+}
 .contact-form {
   display:grid; gap:16px;
   background:rgba(255,255,255,.03);
-  -webkit-backdrop-filter:blur(28px); backdrop-filter:blur(28px);
   -webkit-backdrop-filter:blur(28px);
+  backdrop-filter:blur(28px);
   border:1px solid rgba(255,255,255,.1);
   border-radius:var(--radius); padding:32px;
   box-shadow:0 8px 48px rgba(99,102,241,.07),
@@ -888,6 +1036,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 @media(max-width:960px) {
   .hero-grid, .about-grid, .contact-grid { grid-template-columns:1fr; }
   .hero { padding-top:calc(var(--header-h) + 50px); }
+  .insight-grid { grid-template-columns:1fr; }
   .hero-copy { max-width:100%; text-align:center; }
   .cta-buttons { justify-content:center; }
   .hero-visual { max-width:480px; margin:0 auto; }
@@ -948,7 +1097,8 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 #modal-overlay {
   position:fixed; inset:0;
   background:rgba(5,5,10,.85);
-  -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
   z-index:5000;
   display:flex; align-items:center; justify-content:center;
   padding:24px;
@@ -1260,7 +1410,8 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 #lightbox {
   position:fixed; inset:0;
   background:rgba(5,5,10,.96);
-  -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  backdrop-filter:blur(22px);
   z-index:6000;
   display:flex; align-items:center; justify-content:center;
   opacity:0; pointer-events:none; transition:opacity .4s;
@@ -1290,14 +1441,14 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15);
   border-radius:50%; color:#fff; font-size:1.3rem; cursor:none;
   display:flex; align-items:center; justify-content:center;
-  transition:background .25s; user-select:none;
+  transition:background .25s; -webkit-user-select:none; user-select:none;
 }
 .lb-nav:hover { background:rgba(146,120,240,.35); }
 #lb-prev { left:20px; }
 #lb-next { right:20px; }
 .lb-counter {
   position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-  background:rgba(255,255,255,.1); backdrop-filter:blur(8px);
+  background:rgba(255,255,255,.1); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
   border:1px solid rgba(255,255,255,.12);
   color:#fff; font-size:.8rem; font-weight:600;
   padding:6px 16px; border-radius:999px;
@@ -1342,14 +1493,14 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 .gallery-preview {
   position:absolute;
   width:min(120px, 18vw);
-  aspect-ratio:4/5;
+  aspect-ratio:3/5;
   border-radius:16px;
   overflow:hidden;
   pointer-events:none;
   z-index:4;
   opacity:0;
   transform:translate(-50%, -50%) scale(.78);
-  transition:opacity 1.05s ease, transform 1.05s cubic-bezier(.22,1,.36,1);
+  transition:opacity 2s ease, transform 2.05s cubic-bezier(.24,1,.38,1);
   box-shadow:0 20px 45px rgba(0,0,0,.35);
   border:1px solid rgba(255,255,255,.18);
   background:rgba(255,255,255,.06);
@@ -1486,14 +1637,14 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15);
   border-radius:50%; color:#fff; font-size:1.3rem; cursor:none;
   display:flex; align-items:center; justify-content:center;
-  transition:background .25s; user-select:none;
+  transition:background .25s; -webkit-user-select:none; user-select:none;
 }
 .lb-nav:hover { background:rgba(146,120,240,.35); }
 #lb-prev { left:20px; }
 #lb-next { right:20px; }
 .lb-counter {
   position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-  background:rgba(255,255,255,.1); backdrop-filter:blur(8px);
+  background:rgba(255,255,255,.1); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
   border:1px solid rgba(255,255,255,.12);
   color:#fff; font-size:.8rem; font-weight:600;
   padding:6px 16px; border-radius:999px;
@@ -1623,8 +1774,12 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   <div class="container hero-grid">
     <div class="hero-copy">
       <span class="badge"><span class="badge-dot"></span>Available for work</span>
+      <div class="hero-signature">
+        <span class="signature-mark">Bekzod</span>
+        <span class="signature-pill">Future-focused builder</span>
+      </div>
       <h1 class="main-title">Rustamov<br><span class="gradient-text" id="typed-text">Bekzod</span></h1>
-      <p class="subtitle">Web Developer &amp; UI/UX Designer — building fast, modern, and beautiful digital experiences with clean code and creative vision.</p>
+      <p class="subtitle">I am a motivated young developer and learner, preparing for IELTS and SAT while building meaningful digital experiences and pursuing a future in technology and international education.</p>
       <div class="cta-buttons">
         <a href="#projects" class="btn-primary">View Projects →</a>
         <a href="#contact" class="btn-secondary">Let's Talk</a>
@@ -1711,24 +1866,39 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
     <div class="about-copy reveal reveal--left">
       <span class="section-label">Who I am</span>
       <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
-      <p>I'm Bekzod Rustamov — a web developer with 1+ year of hands-on experience. I specialize in crafting clean, fast, and visually stunning web applications using HTML, CSS, and JavaScript.</p>
-      <p>Currently preparing for IELTS (B2/C1) and continuously leveling up my skills in modern frontend development.</p>
+      <p>I’m Rustamov Bekzod, born on 17 May 2010 in Samarkand. I am currently preparing for IELTS at B2 level and for the SAT, while building my future in technology, education, and international opportunity.</p>
+      <p>I have earned three certificates in AI and frontend development, and I am deeply passionate about creating meaningful digital experiences. I enjoy traveling alone, reflecting at night, and appreciating people who are sincere, kind, and genuine.</p>
+      <p>My long-term goal is to build a life of purpose, happiness, and success, to find my own path, and to study IT at one of the top 200 universities in the United States. I truly believe that I can make this dream a reality.</p>
+      <div class="about-highlight-list">
+        <div class="about-highlight-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><strong>Journey:</strong> I am growing through learning, self-development, and hands-on experience in frontend and AI-related work.</span>
+        </div>
+        <div class="about-highlight-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><strong>Focus:</strong> performance, accessibility, visual storytelling, and building digital experiences with purpose and clarity.</span>
+        </div>
+        <div class="about-highlight-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><strong>Approach:</strong> thoughtful structure, clean code, and design details that make every product feel polished, meaningful, and memorable.</span>
+        </div>
+      </div>
       <div class="skills-grid">
         <div class="skill-item">
-          <div class="skill-header"><span>HTML &amp; CSS</span><span>90%</span></div>
-          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+          <div class="skill-header"><span>HTML &amp; CSS</span><span>92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span>JavaScript</span><span>75%</span></div>
-          <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+          <div class="skill-header"><span>JavaScript</span><span>85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span>UI / UX Design</span><span>80%</span></div>
-          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+          <div class="skill-header"><span>UI / UX Design</span><span>88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span>Responsive Design</span><span>95%</span></div>
-          <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+          <div class="skill-header"><span>Responsive Design</span><span>96%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="96"></div></div>
         </div>
       </div>
     </div>
@@ -1744,6 +1914,85 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
       <div class="info-card reveal stagger-3">
         <h3>∞</h3>
         <p>Passion for Code</p>
+      </div>
+    </div>
+  </div>
+  <div class="container insights-section reveal reveal--fade">
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h3>What I focus on</h3>
+        <p>I build fast-loading interfaces that combine clarity, motion, and thoughtful structure. Every section is designed to feel intentional rather than decorative.</p>
+      </div>
+      <div class="insight-card">
+        <h3>What clients usually value</h3>
+        <p>Reliable communication, responsive visuals, modern layout systems, and a smooth experience from desktop to mobile.</p>
+      </div>
+      <div class="insight-card">
+        <h3>Latest updates</h3>
+        <p>Recent work has centered on stronger storytelling, better project presentation, and more polished portfolio narratives for personal brands.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey" class="journey-section">
+  <div class="container">
+    <div class="section-header reveal reveal--fade">
+      <div>
+        <span class="section-label">Growth</span>
+        <h2 class="section-title">Journey &amp; Experience</h2>
+      </div>
+    </div>
+    <div class="journey-shell">
+      <div class="journey-card reveal reveal--left">
+        <span class="section-label">Level Up</span>
+        <h3>Developer Growth Map</h3>
+        <p>I am building my future through focus, discipline, and continuous learning. Every milestone brings me closer to becoming a stronger builder in technology and design.</p>
+        <div class="xp-card">
+          <div class="xp-top">
+            <span class="xp-label">Developer Level</span>
+            <span class="xp-value" id="xp-level">Level 7</span>
+          </div>
+          <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
+          <div class="xp-meta">
+            <span>XP 720 / 1000</span>
+            <span>Next unlock: AI Mastery</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal stagger-1 active">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">2010</span>
+            <h4>Born in Samarkand</h4>
+            <p>The beginning of a journey shaped by curiosity, ambition, and the dream of building something meaningful.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal stagger-2">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">2024</span>
+            <h4>Learning Frontend &amp; Design</h4>
+            <p>I began developing strong foundations in HTML, CSS, JavaScript, and visual design with a focus on quality and clarity.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal stagger-3">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">2025</span>
+            <h4>AI Certificates &amp; Digital Growth</h4>
+            <p>I expanded my knowledge through AI-related learning and started creating more polished digital experiences.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal stagger-4">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">Now</span>
+            <h4>Preparing for the Future</h4>
+            <p>I am preparing for higher opportunities, stronger studies, and a future in international technology.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1766,7 +2015,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
         data-img="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=80"
         data-tag="Frontend"
         data-title="Portfolio Web"
-        data-desc="Personal portfolio site built from scratch with pure HTML, CSS and JavaScript. Features smooth scroll animations, custom cursor, typing effect, skill bars, responsive design and glassmorphism UI components. Optimized for all screen sizes."
+        data-desc="A personal portfolio experience designed to feel premium and modern. Built with a strong visual hierarchy, animated sections, and a responsive layout that works smoothly across devices."
         data-tech="HTML,CSS,JavaScript,UI/UX">
         <div class="card-img-wrap">
           <span class="card-tag">Frontend</span>
@@ -1774,7 +2023,11 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
         </div>
         <div class="card-body">
           <h3>Portfolio Web</h3>
-          <p>Personal portfolio built with pure HTML, CSS &amp; JS. Smooth animations, responsive layout, modern dark design.</p>
+          <p>A polished personal portfolio with animated transitions, interactive gallery sections, and a refined dark/light visual system.</p>
+          <div class="project-summary">
+            <div><strong>Result:</strong> Delivered a professional digital showcase with stronger storytelling and better visual balance.</div>
+            <div><strong>Stack:</strong> HTML, CSS, JavaScript, responsive UI.</div>
+          </div>
           <div class="card-footer">
             <div class="card-tech">
               <span class="tech-badge">HTML</span>
@@ -1790,7 +2043,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
         data-img="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=900&q=80"
         data-tag="UI/UX"
         data-title="Design Creation"
-        data-desc="Visual interface design project focused on creating consistent design systems, modern aesthetics and exceptional user experience. Covers layout planning, color theory, typography and interactive prototyping."
+        data-desc="A visual interface concept focused on clarity, color harmony, modern layout spacing, and a more intuitive user journey for digital products."
         data-tech="Figma,CSS,Design System">
         <div class="card-img-wrap">
           <span class="card-tag">UI/UX</span>
@@ -1798,7 +2051,11 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
         </div>
         <div class="card-body">
           <h3>Design Creation</h3>
-          <p>Visual interface design focused on user experience, modern aesthetics and consistent design systems.</p>
+          <p>Focused on building a consistent design system with thoughtful typography, balanced spacing, and clean interaction patterns.</p>
+          <div class="project-summary">
+            <div><strong>Result:</strong> Improved the perceived quality of the layout by making every block feel more intentional.</div>
+            <div><strong>Stack:</strong> Figma, CSS, design systems.</div>
+          </div>
           <div class="card-footer">
             <div class="card-tech">
               <span class="tech-badge">Figma</span>
@@ -1813,7 +2070,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
         data-img="https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=900&q=80"
         data-tag="Web App"
         data-title="Web Application"
-        data-desc="Full responsive web application with clean architecture, scalable component structure and smooth interactions. Includes API integration, dynamic content rendering and optimized performance for enterprise-level usage."
+        data-desc="A responsive web application concept centered on smooth interaction, scalable structure, and clear visual hierarchy for real-world products."
         data-tech="JavaScript,CSS,REST API,HTML">
         <div class="card-img-wrap">
           <span class="card-tag">Web App</span>
@@ -1821,7 +2078,11 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
         </div>
         <div class="card-body">
           <h3>Web Application</h3>
-          <p>Full responsive web app interface with clean architecture, scalable components and smooth interactions.</p>
+          <p>Built as a responsive interface concept with scalable components and smooth, user-friendly interaction flow.</p>
+          <div class="project-summary">
+            <div><strong>Result:</strong> Created a UI foundation that is easy to expand and adapt for product growth.</div>
+            <div><strong>Stack:</strong> JavaScript, CSS, REST API, HTML.</div>
+          </div>
           <div class="card-footer">
             <div class="card-tech">
               <span class="tech-badge">JS</span>
@@ -1844,19 +2105,38 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
     <div class="contact-copy reveal reveal--left">
       <span class="section-label">Get in touch</span>
       <h2 class="section-title">Contact</h2>
-      <p>Have a project in mind or want to collaborate? Send me a message and I'll get back to you.</p>
+      <p>Open for freelance work, front-end collaborations, and long-term product projects. If you need a modern, fast, and polished digital experience, I’m ready to help.</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <span><strong>Email</strong><br>bbek75059@gmail.com</span>
+          <a href="mailto:bbek75059@gmail.com">Write email</a>
+        </div>
+        <div class="contact-method">
+          <span><strong>Telegram</strong><br>@rustamov_vvw</span>
+          <a href="https://t.me/rustamov_vvw" target="_blank" rel="noopener">Open chat</a>
+        </div>
+        <div class="contact-method">
+          <span><strong>Instagram</strong><br>@rustamov_vvw · @bekzod_xoo6</span>
+          <a href="https://www.instagram.com/rustamov_vvw/" target="_blank" rel="noopener">View profile</a>
+        </div>
+        <div class="contact-method">
+          <span><strong>Phone</strong><br>+998 70 073 08 17</span>
+          <a href="tel:+998700730817">Call now</a>
+        </div>
+      </div>
+      <p class="contact-note">Prefer a quick intro? Use the form below or reach out directly through one of the links above.</p>
       <div class="social-links">
         <a href="https://www.instagram.com/rustamov_vvw/" class="social-button reveal stagger-1" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           Instagram
         </a>
-        <a href="https://t.me/Rustamovbekzod" class="social-button reveal stagger-2" target="_blank" rel="noopener">
+        <a href="https://t.me/rustamov_vvw" class="social-button reveal stagger-2" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
           Telegram
         </a>
-        <a href="https://github.com/" class="social-button reveal stagger-3" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
+        <a href="mailto:bbek75059@gmail.com" class="social-button reveal stagger-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/></svg>
+          Email
         </a>
       </div>
     </div>
@@ -1881,7 +2161,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 </main>
 
 <footer class="footer reveal reveal--fade">
-  <p>Designed &amp; built by <span>Rustamov Bekzod</span> · 2025</p>
+  <p>Designed &amp; built by <span>Rustamov Bekzod</span> · <span id="year"></span></p>
 </footer>
 
 <script src="port.js"></script>
@@ -1954,6 +2234,28 @@ const co=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){animateCount(e.target);co.unobserve(e.target);}});
 },{threshold:.5});
 document.querySelectorAll('.count-num').forEach(el=>co.observe(el));
+
+/* ===== GAMIFICATION BAR ===== */
+const xpFill=document.getElementById('xp-fill');
+const xpCard=document.querySelector('.xp-card');
+if(xpFill&&xpCard){
+  const xpObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        xpFill.style.width='72%';
+        xpCard.style.boxShadow='0 0 0 1px rgba(99,102,241,.2), 0 18px 60px rgba(99,102,241,.16)';
+        xpObserver.disconnect();
+      }
+    });
+  },{threshold:.5});
+  xpObserver.observe(xpCard);
+}
+
+/* ===== TIMELINE REVEAL ===== */
+document.querySelectorAll('.timeline-item').forEach((item,index)=>{
+  item.classList.add('visible');
+  item.style.transitionDelay=`${index*80}ms`;
+});
 
 /* ===== TYPING EFFECT ===== */
 const words=['Bekzod','Developer','Designer','Creative'];
