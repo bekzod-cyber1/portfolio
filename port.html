@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Bekzod Rustamov is a front-end developer and UI/UX designer creating modern, responsive, and high-performing web experiences.">
   <meta name="keywords" content="frontend developer, UI/UX designer, portfolio website, web design, JavaScript, HTML, CSS">
+  <meta property="og:title" content="Bekzod Rustamov | Frontend Developer & UI/UX Designer">
+  <meta property="og:description" content="Personal portfolio of Bekzod Rustamov, a frontend developer and UI/UX designer from Samarkand.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="me.jpg">
+  <meta name="theme-color" content="#05050a">
   <title>Bekzod Rustamov | Frontend Developer & UI/UX Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -267,6 +272,10 @@ body {
   line-height:1.6;
   cursor:none;
 }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline:2px solid var(--pink);
+  outline-offset:4px;
+}
 img { max-width:100%; display:block; }
 button,input,textarea,a { font:inherit; }
 a { text-decoration:none; }
@@ -367,7 +376,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   border-radius:50%;
   filter:blur(80px);
   opacity:.28;
-  animation:blobFloat 12s ease-in-out infinite alternate;
+  animation:blobFloat 18s ease-in-out infinite alternate;
 }
 .mesh-blob:nth-child(1) {
   width:520px; height:520px;
@@ -559,7 +568,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 .hero-card::after {
   content:'';
   position:absolute; inset:0;
-  background-image:url('me.jpg');
+  background-image:url('photos/me.webp');
   background-size:cover;
   background-position:center top;
   filter:blur(6px) brightness(0.35) saturate(1.1);
@@ -877,6 +886,16 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   display:flex; align-items:center; justify-content:space-between;
   border-top:1px solid var(--border); padding-top:16px;
 }
+.project-links {
+  display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+}
+.project-link {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:7px 10px; border:1px solid var(--border); border-radius:999px;
+  color:var(--muted); font-size:.72rem; font-weight:700;
+  transition:color .25s, background .25s, border-color .25s;
+}
+.project-link:hover { color:var(--text); background:rgba(146,120,240,.15); border-color:rgba(146,120,240,.4); }
 .card-tech { display:flex; gap:8px; flex-wrap:wrap; }
 .tech-badge {
   background:rgba(99,102,241,.1);
@@ -1136,6 +1155,11 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 }
 .modal-body h2 { font-size:1.7rem; font-weight:800; margin-bottom:12px; }
 .modal-body p  { color:var(--muted); line-height:1.85; margin-bottom:20px; }
+.case-study { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:0 0 24px; }
+.case-study-item { padding:14px; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:14px; }
+.case-study-item h3 { margin:0 0 6px; color:var(--purple); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; }
+.case-study-item p { margin:0; font-size:.82rem; line-height:1.65; }
+@media(max-width:560px) { .case-study { grid-template-columns:1fr; } }
 .modal-tech { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
 .modal-close {
   position:absolute; top:18px; right:18px;
@@ -1247,6 +1271,23 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   padding:4px 10px; border-radius:999px;
   text-transform:uppercase; letter-spacing:.06em;
 }
+.certificate-showcase { padding:96px 0; position:relative; z-index:1; }
+.certificate-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.certificate-card {
+  display:grid; grid-template-columns:150px 1fr; gap:22px; align-items:center;
+  width:100%; padding:16px; text-align:left; color:var(--text);
+  background:var(--card); border:1px solid var(--border); border-radius:20px;
+  cursor:pointer; transition:transform .45s cubic-bezier(.22,1,.36,1), border-color .35s, box-shadow .35s;
+}
+.certificate-card:hover { transform:translateY(-6px); border-color:rgba(146,120,240,.4); box-shadow:0 20px 50px rgba(99,102,241,.14); }
+.certificate-card img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:12px; background:#fff; }
+.certificate-card h3 { margin:0 0 8px; font-size:1.05rem; line-height:1.4; }
+.certificate-card p { color:var(--muted); font-size:.84rem; line-height:1.6; margin:0 0 12px; }
+.certificate-card .cert-badge { display:inline-block; margin:0; }
+.modal-project-links { margin-top:16px; }
+.cert-verify-link { color:var(--purple); word-break:break-word; }
+@media(max-width:768px) { .certificate-grid { grid-template-columns:1fr; } }
+@media(max-width:520px) { .certificate-card { grid-template-columns:1fr; } }
 
 /* Extra Projects */
 .extra-projects { display:grid; gap:16px; }
@@ -1500,7 +1541,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   z-index:4;
   opacity:0;
   transform:translate(-50%, -50%) scale(.78);
-  transition:opacity 2s ease, transform 2.05s cubic-bezier(.24,1,.38,1);
+  transition:opacity 3.2s ease, transform 3.25s cubic-bezier(.24,1,.38,1);
   box-shadow:0 20px 45px rgba(0,0,0,.35);
   border:1px solid rgba(255,255,255,.18);
   background:rgba(255,255,255,.06);
@@ -1533,7 +1574,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   transform:translate(-50%, -50%) scale(.8);
   box-shadow:0 16px 34px rgba(0,0,0,.24);
   border:1px solid rgba(255,255,255,.14);
-  animation:trailFade 1.45s ease forwards;
+  animation:trailFade 2.6s ease forwards;
 }
 .gallery-preview-trail .trail-item img {
   width:100%; height:100%; object-fit:cover; display:block;
@@ -1557,8 +1598,24 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:14px;
-  max-width:132px;
+  max-width:720px;
   margin:0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior:auto !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+  #cursor-dot, #cursor-ring, #particles-canvas, .scroll-hint { display:none; }
+  body { cursor:auto; }
+}
+
+@media (hover:none), (pointer:coarse) {
+  #cursor-dot, #cursor-ring { display:none; }
+  body, button, .btn-cv, .btn-cert, .social-button, .g-uni-item { cursor:auto; }
 }
 .g-uni-item {
   position:relative; border-radius:14px; overflow:hidden;
@@ -1566,9 +1623,9 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   opacity:0;
   transform:scale(.84) translateY(14px);
   filter:blur(2px);
-  transition:opacity .8s cubic-bezier(.22,1,.36,1),
-             transform .8s cubic-bezier(.22,1,.36,1),
-             filter .7s ease,
+  transition:opacity 1.15s cubic-bezier(.22,1,.36,1),
+             transform 1.15s cubic-bezier(.22,1,.36,1),
+             filter 1s ease,
              box-shadow .5s;
   box-shadow:0 8px 24px rgba(0,0,0,.16);
 }
@@ -1687,11 +1744,11 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 <div id="cert-overlay" role="dialog" aria-modal="true">
   <div class="cert-modal-box">
     <button class="cert-close" id="cert-close" aria-label="Close">✕</button>
-    <img class="cert-modal-img" id="cert-img" src="" alt="Certificate">
+    <img class="cert-modal-img" id="cert-img" src="" alt="Course certificate">
     <div class="cert-modal-footer">
       <div>
-        <h3 id="cert-title">Certificate</h3>
-        <span id="cert-sub">Coursera · 2025</span>
+        <h3 id="cert-title">IoT Wireless &amp; Cloud Computing Certificate</h3>
+        <span id="cert-sub">Yonsei University · Coursera · 2026</span>
       </div>
       <a id="cert-download" href="" download class="btn-primary cert-modal-action">⬇ Save</a>
     </div>
@@ -1701,31 +1758,23 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
     <!-- Scroll ile chiqadigan ma'lumotlar -->
     <div class="cert-info-section">
       <div class="cert-info-item">
-        <h4>📋 About This Certificate</h4>
-        <p>Issued by <strong class="cert-emphasis">Google Cloud</strong> and delivered through <strong class="cert-emphasis">Coursera</strong>. Completed on <strong class="cert-emphasis">April 2, 2026</strong>. This credential confirms successful completion of an authorized online course on Generative AI fundamentals.</p>
+        <h4>About This Certificate</h4>
+        <p id="cert-about"></p>
       </div>
 
       <div class="cert-info-item">
-        <h4>🤖 What is Generative AI?</h4>
-        <p>Generative AI is a type of artificial intelligence that can produce new content — including text, images, audio, and code — based on patterns learned from training data. It powers tools like ChatGPT, Google Gemini, and DALL·E. This course covers how Gen AI differs from traditional machine learning and how to leverage Google Cloud tools to build Gen AI applications.</p>
+        <h4>What This Demonstrates</h4>
+        <p id="cert-demonstrates"></p>
       </div>
 
       <div class="cert-info-item">
-        <h4>🧠 Skills Gained</h4>
-        <div class="cert-skills">
-          <span class="cert-skill-tag">Generative AI</span>
-          <span class="cert-skill-tag">Large Language Models</span>
-          <span class="cert-skill-tag">Google Cloud</span>
-          <span class="cert-skill-tag">Machine Learning</span>
-          <span class="cert-skill-tag">Vertex AI</span>
-          <span class="cert-skill-tag">Prompt Engineering</span>
-          <span class="cert-skill-tag">AI Ethics</span>
-        </div>
+        <h4>Skills Covered</h4>
+        <div class="cert-skills" id="cert-skills"></div>
       </div>
 
       <div class="cert-info-item">
-        <h4>🌐 Issued By</h4>
-        <p><strong class="cert-emphasis">Google Cloud Training</strong> — one of the world's leading cloud and AI platforms. Coursera certificates from Google Cloud are recognized globally by tech companies and are valuable credentials for AI and software development careers.</p>
+        <h4>Verification</h4>
+        <p id="cert-verification"></p>
       </div>
     </div>
   </div>
@@ -1740,10 +1789,29 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
       <span class="modal-tag" id="modal-tag"></span>
       <h2 id="modal-title"></h2>
       <p id="modal-desc"></p>
+      <div class="case-study" aria-label="Project case study">
+        <div class="case-study-item"><h3>Problem</h3><p id="case-problem"></p></div>
+        <div class="case-study-item"><h3>Process</h3><p id="case-process"></p></div>
+        <div class="case-study-item"><h3>Solution</h3><p id="case-solution"></p></div>
+        <div class="case-study-item"><h3>Result</h3><p id="case-result"></p></div>
+      </div>
       <div class="modal-tech" id="modal-tech"></div>
       <a href="#contact" class="btn-primary" id="modal-cta" onclick="closeModal()">Start a Project →</a>
+      <div class="project-links modal-project-links">
+        <a class="project-link" id="modal-live" href="#" target="_blank" rel="noopener">See project ↗</a>
+        <a class="project-link" id="modal-github" href="#" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- Gallery lightbox -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery image" aria-hidden="true">
+  <button class="lb-close" id="lb-close" aria-label="Close image">&#215;</button>
+  <button class="lb-nav" id="lb-prev" aria-label="Previous image">&#8249;</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-nav" id="lb-next" aria-label="Next image">&#8250;</button>
+  <div class="lb-counter" id="lb-counter" aria-live="polite"></div>
 </div>
 
 <!-- Animated mesh background -->
@@ -1762,6 +1830,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#gallery">Gallery</a>
+      <a href="#certificates">Certificates</a>
       <a href="#contact" class="nav-cta">Contact</a>
       <button id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">🌙</button>
     </nav>
@@ -1791,14 +1860,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
               <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
           </span>
-          <span>Download CV</span>
-        </button>
-        <button class="btn-cert" id="cert-btn"
-          data-img="sert1.png"
-          data-title="AI Practitioner Certificate"
-          data-sub="Coursera · 2025"
-          aria-label="View Certificate">
-          🏆 Certificate
+          <span>Open CV</span>
         </button>
       </div>
     </div>
@@ -1806,7 +1868,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
       <div class="hero-card">
         <div class="hero-card-glow"></div>
         <div class="hero-card__content">
-          <h2>Portfolio <span class="gradient-text">2025</span></h2>
+          <h2>Portfolio <span class="gradient-text">2026</span></h2>
           <p>Modern web design &amp; responsive UI</p>
           <div class="hero-stat-row">
             <div class="hero-stat"><strong>1+</strong><span>Years exp</span></div>
@@ -1839,19 +1901,19 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
       <p class="hint-msg">Move your mouse over the photos</p>
     </div>
         <div class="gallery-uniform-grid" id="gallery-uniform-grid">
-      <div class="g-uni-item" data-index="0"><img src="photos/5435959095610512895_121.jpg" alt="Photo 1"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="1"><img src="photos/5435959095610512896_121.jpg" alt="Photo 2"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="2"><img src="photos/5435959095610512898_121.jpg" alt="Photo 3"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="3"><img src="photos/5435959095610512899_121.jpg" alt="Photo 4"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="4"><img src="photos/5435959095610512923_121.jpg" alt="Photo 5"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="5"><img src="photos/5435959095610513003_121.jpg" alt="Photo 6"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="6"><img src="photos/5435959095610513006_121.jpg" alt="Photo 7"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="7"><img src="photos/5435959095610513008_121.jpg" alt="Photo 8"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="8"><img src="photos/5435959095610513010_121.jpg" alt="Photo 9"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="9"><img src="photos/5435959095610513016_121.jpg" alt="Photo 10"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="10"><img src="photos/5435959095610513023_121.jpg" alt="Photo 11"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="11"><img src="photos/5435959095610513024_121.jpg" alt="Photo 12"><div class="g-vignette"></div></div>
-      <div class="g-uni-item" data-index="12"><img src="photos/photo_2025-12-23_17-24-23.jpg" alt="Photo 13"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="0"><img src="photos/5435959095610512895_121.webp" alt="Photo 1"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="1"><img src="photos/5435959095610512896_121.webp" alt="Photo 2"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="2"><img src="photos/5435959095610512898_121.webp" alt="Photo 3"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="3"><img src="photos/5435959095610512899_121.webp" alt="Photo 4"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="4"><img src="photos/5435959095610512923_121.webp" alt="Photo 5"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="5"><img src="photos/5435959095610513003_121.webp" alt="Photo 6"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="6"><img src="photos/5435959095610513006_121.webp" alt="Photo 7"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="7"><img src="photos/5435959095610513008_121.webp" alt="Photo 8"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="8"><img src="photos/5435959095610513010_121.webp" alt="Photo 9"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="9"><img src="photos/5435959095610513016_121.webp" alt="Photo 10"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="10"><img src="photos/5435959095610513023_121.webp" alt="Photo 11"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="11"><img src="photos/5435959095610513024_121.webp" alt="Photo 12"><div class="g-vignette"></div></div>
+      <div class="g-uni-item" data-index="12"><img src="photos/photo_2025-12-23_17-24-23.webp" alt="Photo 13"><div class="g-vignette"></div></div>
     </div>
     <div class="gallery-preview" id="gallery-preview" aria-hidden="true"><img src="" alt=""></div>
 <div class="gallery-preview-trail" id="gallery-preview-trail" aria-hidden="true"></div>
@@ -2000,6 +2062,44 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 
 <div class="neon-divider"></div>
 
+<!-- ===================== CERTIFICATES ===================== -->
+<section id="certificates" class="certificate-showcase">
+  <div class="container">
+    <div class="section-header reveal reveal--fade">
+      <div>
+        <span class="section-label">Credentials</span>
+        <h2 class="section-title">Certificates</h2>
+      </div>
+    </div>
+    <div class="certificate-grid">
+      <button class="certificate-card reveal stagger-1"
+        data-img="sert2.png" data-title="IoT Wireless &amp; Cloud Computing Technologies"
+        data-sub="Yonsei University · Coursera · August 21, 2026"
+        data-about="Rustamov Bekzod successfully completed IoT (Internet of Things) Wireless &amp; Cloud Computing Technologies, an online course authorized by Yonsei University and offered through Coursera on August 21, 2026."
+        data-demonstrates="This credential demonstrates structured learning in connected devices, wireless communication, cloud computing concepts, and emerging Internet of Things technologies."
+        data-skills="Internet of Things|Wireless Technologies|Cloud Computing|Connected Devices|Emerging Technologies"
+        data-issuer="Yonsei University" data-platform="Coursera"
+        data-verify="https://coursera.org/verify/ZSGISTOB5T4T">
+        <img src="sert2.png" alt="Yonsei University IoT course certificate" loading="lazy">
+        <span><strong class="cert-badge">Verified course</strong><h3>IoT Wireless &amp; Cloud Computing Technologies</h3><p>Yonsei University · Coursera · 2026</p><span class="project-link">View certificate ↗</span></span>
+      </button>
+      <button class="certificate-card reveal stagger-2"
+        data-img="sert1.png" data-title="Introduction to Generative AI"
+        data-sub="Google Cloud · Coursera · April 2, 2026"
+        data-about="Rustamov Bekzod successfully completed Introduction to Generative AI, an online course authorized by Google Cloud and offered through Coursera on April 2, 2026."
+        data-demonstrates="This credential demonstrates foundational knowledge of generative AI, large language models, responsible AI concepts, and practical cloud-based AI opportunities."
+        data-skills="Generative AI|Large Language Models|Google Cloud|Machine Learning|Prompt Engineering|AI Ethics"
+        data-issuer="Google Cloud" data-platform="Coursera"
+        data-verify="https://coursera.org/verify/0CAU00B8PUNK">
+        <img src="sert1.png" alt="Google Cloud Introduction to Generative AI certificate" loading="lazy">
+        <span><strong class="cert-badge">Verified course</strong><h3>Introduction to Generative AI</h3><p>Google Cloud · Coursera · 2026</p><span class="project-link">View certificate ↗</span></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
 <!-- ===================== PROJECTS ===================== -->
 <section id="projects" class="projects-section">
   <div class="container">
@@ -2012,21 +2112,28 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
     <div class="project-grid">
       <article class="card reveal reveal--scale stagger-1"
         data-modal="true"
+        role="button" tabindex="0" aria-label="View Portfolio Web project details"
+        data-live="https://coruscating-mooncake-ef4c16.netlify.app/"
+        data-github="https://github.com/bekzod-cyber1"
         data-img="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=80"
         data-tag="Frontend"
-        data-title="Portfolio Web"
-        data-desc="A personal portfolio experience designed to feel premium and modern. Built with a strong visual hierarchy, animated sections, and a responsive layout that works smoothly across devices."
+        data-title="Personal Brand Portfolio"
+        data-desc="A personal brand website presenting Bekzod's frontend, UI/UX, and AI interests through a bold visual system, clear navigation, responsive sections, and direct contact paths."
+        data-problem="The portfolio needed a clear way to present personal identity, skills, certificates, and work in one memorable experience."
+        data-process="Planned the content hierarchy, built reusable HTML sections, refined responsive behavior, and tested navigation and modals."
+        data-solution="Created a motion-led personal portfolio with dark/light themes, gallery lightbox, certificates, project links, and direct contact paths."
+        data-result="Delivered a responsive professional showcase that makes the developer's work and learning journey easy to explore."
         data-tech="HTML,CSS,JavaScript,UI/UX">
         <div class="card-img-wrap">
           <span class="card-tag">Frontend</span>
           <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=80" alt="Portfolio web project" loading="lazy">
         </div>
         <div class="card-body">
-          <h3>Portfolio Web</h3>
-          <p>A polished personal portfolio with animated transitions, interactive gallery sections, and a refined dark/light visual system.</p>
+          <h3>Personal Brand Portfolio</h3>
+          <p>A live personal website combining frontend development, UI/UX thinking, and a clear professional identity.</p>
           <div class="project-summary">
-            <div><strong>Result:</strong> Delivered a professional digital showcase with stronger storytelling and better visual balance.</div>
-            <div><strong>Stack:</strong> HTML, CSS, JavaScript, responsive UI.</div>
+            <div><strong>Focus:</strong> Personal branding, responsive layout, and strong visual storytelling.</div>
+            <div><strong>Stack:</strong> HTML, CSS, JavaScript, Netlify.</div>
           </div>
           <div class="card-footer">
             <div class="card-tech">
@@ -2034,43 +2141,62 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
               <span class="tech-badge">CSS</span>
               <span class="tech-badge">JS</span>
             </div>
-            <div class="card-arrow">→</div>
+            <div class="project-links">
+              <a class="project-link" href="https://coruscating-mooncake-ef4c16.netlify.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Live demo ↗</a>
+              <a class="project-link" href="https://github.com/bekzod-cyber1" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub ↗</a>
+            </div>
           </div>
         </div>
       </article>
       <article class="card reveal reveal--scale stagger-2"
         data-modal="true"
+        role="button" tabindex="0" aria-label="View Design Creation project details"
+        data-live="https://coruscating-mooncake-ef4c16.netlify.app/"
+        data-github="https://github.com/bekzod-cyber1"
         data-img="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=900&q=80"
         data-tag="UI/UX"
         data-title="Design Creation"
-        data-desc="A visual interface concept focused on clarity, color harmony, modern layout spacing, and a more intuitive user journey for digital products."
-        data-tech="Figma,CSS,Design System">
+        data-desc="A live personal brand experience focused on clear visual storytelling, thoughtful spacing, responsive layout, and a more intuitive user journey."
+        data-problem="A personal brand website can feel generic when the content, visual identity, and user journey are not connected."
+        data-process="Studied the intended identity, organized sections around the visitor journey, and tuned typography, spacing, colors, and responsive interactions."
+        data-solution="Built a focused visual system that combines clear navigation, expressive layouts, subtle motion, and strong calls to action."
+        data-result="Created a live, responsive experience that communicates Bekzod's frontend, UI/UX, and AI direction with more confidence."
+        data-tech="HTML,CSS,JavaScript,UI/UX,Netlify">
         <div class="card-img-wrap">
           <span class="card-tag">UI/UX</span>
           <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=900&q=80" alt="Design project" loading="lazy">
         </div>
         <div class="card-body">
           <h3>Design Creation</h3>
-          <p>Focused on building a consistent design system with thoughtful typography, balanced spacing, and clean interaction patterns.</p>
+          <p>A live personal brand experience with a clear visual system, responsive layout, and polished interaction patterns.</p>
           <div class="project-summary">
             <div><strong>Result:</strong> Improved the perceived quality of the layout by making every block feel more intentional.</div>
             <div><strong>Stack:</strong> Figma, CSS, design systems.</div>
           </div>
           <div class="card-footer">
             <div class="card-tech">
-              <span class="tech-badge">Figma</span>
+              <span class="tech-badge">HTML</span>
               <span class="tech-badge">CSS</span>
+              <span class="tech-badge">JS</span>
             </div>
-            <div class="card-arrow">→</div>
+            <div class="project-links">
+              <a class="project-link" href="https://coruscating-mooncake-ef4c16.netlify.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()">See project ↗</a>
+              <a class="project-link" href="https://github.com/bekzod-cyber1" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub ↗</a>
+            </div>
           </div>
         </div>
       </article>
       <article class="card reveal reveal--scale stagger-3"
         data-modal="true"
+        role="button" tabindex="0" aria-label="View Web Application project details"
         data-img="https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=900&q=80"
         data-tag="Web App"
         data-title="Web Application"
         data-desc="A responsive web application concept centered on smooth interaction, scalable structure, and clear visual hierarchy for real-world products."
+        data-problem="Users need interfaces that remain understandable as features and content grow."
+        data-process="Mapped the main interaction flow, separated interface responsibilities, and focused on responsive components and readable hierarchy."
+        data-solution="Designed a scalable web application foundation with clear states, adaptable layout, and a structure ready for API integration."
+        data-result="Produced a flexible UI concept that can evolve into a larger product without losing clarity."
         data-tech="JavaScript,CSS,REST API,HTML">
         <div class="card-img-wrap">
           <span class="card-tag">Web App</span>
@@ -2140,7 +2266,7 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
         </a>
       </div>
     </div>
-    <form class="contact-form reveal reveal--right" id="contact-form" novalidate>
+    <form class="contact-form reveal reveal--right" id="contact-form">
       <div class="input-group">
         <label for="name">Your Name</label>
         <input type="text" id="name" name="name" placeholder="Bekzod Rustamov" required>
@@ -2295,10 +2421,22 @@ document.querySelectorAll('.card').forEach(card=>{
 /* ===== PROJECT MODAL ===== */
 const overlay=document.getElementById('modal-overlay');
 function openModal(card){
-  document.getElementById('modal-img').src=card.dataset.img;
+  const modalImg=document.getElementById('modal-img');
+  modalImg.src=card.dataset.img;
+  modalImg.alt=card.dataset.title || 'Project preview';
+  const modalLive=document.getElementById('modal-live');
+  const modalGithub=document.getElementById('modal-github');
+  modalLive.href=card.dataset.live || '#';
+  modalGithub.href=card.dataset.github || '#';
+  modalLive.hidden=!card.dataset.live;
+  modalGithub.hidden=!card.dataset.github;
   document.getElementById('modal-tag').textContent=card.dataset.tag;
   document.getElementById('modal-title').textContent=card.dataset.title;
   document.getElementById('modal-desc').textContent=card.dataset.desc;
+  document.getElementById('case-problem').textContent=card.dataset.problem||'';
+  document.getElementById('case-process').textContent=card.dataset.process||'';
+  document.getElementById('case-solution').textContent=card.dataset.solution||'';
+  document.getElementById('case-result').textContent=card.dataset.result||'';
   const tb=document.getElementById('modal-tech');tb.innerHTML='';
   card.dataset.tech.split(',').forEach(t=>{
     const s=document.createElement('span');s.className='tech-badge';s.textContent=t.trim();tb.appendChild(s);
@@ -2307,7 +2445,12 @@ function openModal(card){
   document.body.style.overflow='hidden';
 }
 function closeModal(){overlay.classList.remove('open');document.body.style.overflow='';}
-document.querySelectorAll('.card[data-modal]').forEach(c=>c.addEventListener('click',()=>openModal(c)));
+document.querySelectorAll('.card[data-modal]').forEach(c=>{
+  c.addEventListener('click',()=>openModal(c));
+  c.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(c);}
+  });
+});
 document.getElementById('modal-close').addEventListener('click',closeModal);
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
@@ -2342,70 +2485,7 @@ toggleBtn.addEventListener('click',()=>{
 /* ===== CV DOWNLOAD ===== */
 const cvBtn=document.getElementById('cv-btn');
 cvBtn.addEventListener('click',()=>{
-  cvBtn.classList.add('downloading');
-  cvBtn.querySelector('span:last-child').textContent='Downloading...';
-  setTimeout(()=>{
-    const cvContent=`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        RUSTAMOV BEKZOD — Web Developer & UI/UX Designer
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-CONTACT
-  📱 Telegram  : @Rustamovbekzod
-  📸 Instagram : @rustamov_vvw
-  💻 GitHub    : github.com/bekzod-cyber1
-  🌐 Portfolio : bekzod-cyber1.github.io/portfolio/port.html
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ABOUT
-  Web developer with 1+ year of hands-on experience
-  building modern, fast and responsive web applications.
-  Currently preparing for IELTS (B2/C1 level).
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SKILLS
-  ✦ HTML & CSS          ████████████████████ 90%
-  ✦ JavaScript          ████████████████░░░░ 75%
-  ✦ UI/UX Design        ████████████████░░░░ 80%
-  ✦ Responsive Design   ████████████████████ 95%
-  ✦ Git / GitHub        ██████████████░░░░░░ 70%
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CERTIFICATES
-  🏆 AI Practitioner       — Coursera (2025)
-  📜 Web Development       — Mahalliy kurs (2024-2025)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROJECTS
-  1. Personal Portfolio
-     → HTML, CSS, JavaScript, Animations
-     → bekzod-cyber1.github.io/portfolio/port.html
-
-  2. BMI Calculator
-     → HTML, CSS, JavaScript
-     → Calculates Body Mass Index with visual result
-
-  3. Animated Web Page
-     → HTML, CSS (Animations, Keyframes)
-     → Modern animated landing page design
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-LANGUAGES
-  🇺🇿 Uzbek    — Native
-  🇬🇧 English  — B2/C1 (IELTS preparation)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Year: 2025–2026  |  Open to freelance & remote work
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
-    const blob=new Blob([cvContent],{type:'text/plain;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url; a.download='Rustamov_Bekzod_CV_2025.txt';
-    a.click(); URL.revokeObjectURL(url);
-    cvBtn.classList.remove('downloading');
-    cvBtn.querySelector('span:last-child').textContent='Download CV';
-    cvBtn.style.boxShadow='0 0 0 3px rgba(74,222,128,.4)';
-    setTimeout(()=>cvBtn.style.boxShadow='',1400);
-  },900);
+  window.open('cv.html','_blank','noopener');
 });
 
 /* ===== CERTIFICATE MODAL ===== */
@@ -2419,6 +2499,18 @@ document.querySelectorAll('[data-img][data-title]').forEach(btn=>{
       document.getElementById('cert-title').textContent=btn.dataset.title||'Certificate';
       document.getElementById('cert-sub').textContent=btn.dataset.sub||'';
       document.getElementById('cert-download').href=btn.dataset.img;
+      document.getElementById('cert-about').innerHTML=btn.dataset.about||'';
+      document.getElementById('cert-demonstrates').textContent=btn.dataset.demonstrates||'';
+      const skills=document.getElementById('cert-skills');
+      skills.innerHTML='';
+      (btn.dataset.skills||'').split('|').filter(Boolean).forEach(skill=>{
+        const tag=document.createElement('span');
+        tag.className='cert-skill-tag';
+        tag.textContent=skill;
+        skills.appendChild(tag);
+      });
+      const verification=document.getElementById('cert-verification');
+      verification.innerHTML=`Issued by <strong class="cert-emphasis">${btn.dataset.issuer||''}</strong> and delivered through <strong class="cert-emphasis">${btn.dataset.platform||''}</strong>. Verify this credential at <a class="cert-emphasis cert-verify-link" href="${btn.dataset.verify||'#'}" target="_blank" rel="noopener">${btn.dataset.verify||'verification link'}</a>.`;
       certOverlay.classList.add('open');
       document.body.style.overflow='hidden';
     });
@@ -2500,7 +2592,7 @@ document.querySelectorAll('[data-img][data-title]').forEach(btn => {
   let previewIndex = -1;
   let previewActive = false;
   let lastPreviewUpdate = 0;
-  const previewUpdateDelay = 110;
+  const previewUpdateDelay = 190;
 
   function setPreviewImage(index){
     if(!preview) return;

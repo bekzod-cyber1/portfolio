@@ -13,7 +13,12 @@ if (form && statusBox) {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
-    statusBox.textContent = 'Sending message...';
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      statusBox.textContent = 'Sending message...';
     statusBox.className = 'form-status';
 
     try {
@@ -35,7 +40,7 @@ if (form && statusBox) {
       form.reset();
     } catch (error) {
       console.error('Contact submit error:', error);
-      const mailtoLink = `mailto:hello@bekzod.dev?subject=${encodeURIComponent('Portfolio contact')}&body=${encodeURIComponent(`Name: ${payload.name || ''}\nEmail: ${payload.email || ''}\n\nMessage:\n${payload.message || ''}`)}`;
+      const mailtoLink = `mailto:bbek75059@gmail.com?subject=${encodeURIComponent('Portfolio contact')}&body=${encodeURIComponent(`Name: ${payload.name || ''}\nEmail: ${payload.email || ''}\n\nMessage:\n${payload.message || ''}`)}`;
       statusBox.textContent = 'The form is ready to be sent. Please use your email app to contact me directly.';
       statusBox.classList.add('error');
       window.open(mailtoLink, '_blank');
