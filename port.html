@@ -39,6 +39,23 @@ html { scroll-behavior:smooth; }
   --input-bg:  rgba(255,255,255,.05);
   --input-border: rgba(255,255,255,.08);
   --shadow:    rgba(0,0,0,.4);
+  --heading:   #f5f7ff;
+  --soft-text: #c7d2fe;
+  --inverse:   #ffffff;
+}
+html.palette-cyan {
+  --purple: #22d3ee;
+  --indigo: #06b6d4;
+  --pink: #3b82f6;
+  --grad: linear-gradient(135deg,#06b6d4,#0ea5e9,#3b82f6);
+  --grad-soft: linear-gradient(135deg,rgba(6,182,212,.15),rgba(59,130,246,.10));
+}
+html.palette-green {
+  --purple: #34d399;
+  --indigo: #10b981;
+  --pink: #f59e0b;
+  --grad: linear-gradient(135deg,#10b981,#22c55e,#f59e0b);
+  --grad-soft: linear-gradient(135deg,rgba(16,185,129,.15),rgba(245,158,11,.10));
 }
 
 /* ============================================================
@@ -55,6 +72,9 @@ html.light {
   --input-bg:  rgba(0,0,0,.04);
   --input-border: rgba(0,0,0,.10);
   --shadow:    rgba(0,0,0,.12);
+  --heading:   #171725;
+  --soft-text: #394070;
+  --inverse:   #ffffff;
 }
 html.light body { background:var(--bg); color:var(--text); }
 html.light .mesh-blob { opacity:.12; }
@@ -90,7 +110,22 @@ html.light .hero-stat { background:rgba(0,0,0,.05); border-color:rgba(0,0,0,.08)
 html.light .skill-bar { background:rgba(0,0,0,.08); }
 html.light .tech-badge { background:rgba(99,102,241,.1); border-color:rgba(99,102,241,.2); }
 html.light .modal-box { background:rgba(240,240,248,.97); border-color:rgba(0,0,0,.1); }
-html.light .card-body h3 { color:#1a1a2e; }
+html.light .card-body h3,
+html.light .insight-card h3,
+html.light .timeline-item h3,
+html.light .extra-card-header h4 { color:var(--heading); }
+html.light .hero-card:hover .hero-card__content h2,
+html.light .hero-card:hover .hero-card__content p { color:var(--inverse); }
+html.light .hero-card:hover .hero-stat strong { color:var(--inverse); }
+html.light .hero-card:hover .hero-stat span { color:rgba(255,255,255,.85); }
+html.light .journey-card h3 { color:var(--heading); }
+html.light .xp-label,
+html.light .signature-mark { color:var(--soft-text); }
+html.light .cert-modal-footer h3 { color:var(--heading); }
+html.light .cert-skill-tag,
+html.light .btn-cert { color:var(--soft-text); }
+html.light .contact-form input,
+html.light .contact-form textarea { color:var(--text); }
 html.light .neon-divider { background:linear-gradient(90deg,transparent,rgba(99,102,241,.35),rgba(236,72,153,.25),transparent); }
 html.light .footer { color:var(--muted); border-top-color:rgba(0,0,0,.08); }
 html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
@@ -115,12 +150,43 @@ html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
   transform:rotate(20deg) scale(1.1);
   box-shadow:0 0 18px rgba(146,120,240,.3);
 }
+#palette-toggle {
+  width:42px; height:42px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  font-size:1.05rem;
+  flex-shrink:0;
+  gap:3px;
+  transition:background .3s, border-color .3s, transform .3s, box-shadow .3s;
+}
+#palette-toggle .palette-swatch {
+  width:12px; height:12px;
+  border-radius:50%;
+  background:var(--purple);
+  border:2px solid rgba(255,255,255,.8);
+  box-shadow:0 0 8px color-mix(in srgb, var(--purple) 65%, transparent);
+  flex-shrink:0;
+}
+#palette-toggle:hover {
+  background:rgba(146,120,240,.15);
+  border-color:rgba(146,120,240,.4);
+  transform:rotate(18deg) scale(1.1);
+  box-shadow:0 0 18px rgba(146,120,240,.3);
+}
+#palette-picker {
+  position:absolute;
+  width:1px; height:1px;
+  opacity:0;
+  pointer-events:none;
+}
 
 /* ============================================================
    CV DOWNLOAD BUTTON
 ============================================================ */
 .btn-cv {
-  display:inline-flex; align-items:center; gap:9px;
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.14);
   color:var(--text); font-weight:700;
@@ -142,12 +208,6 @@ html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
 }
 .btn-cv:hover::before { opacity:1; }
 .btn-cv span,.btn-cv svg { position:relative; z-index:1; }
-html.light .btn-cv {
-  background:rgba(0,0,0,.05);
-  border-color:rgba(0,0,0,.12);
-  color:var(--text);
-}
-
 /* CV download progress ring */
 .btn-cv .cv-icon {
   width:22px; height:22px;
@@ -412,12 +472,31 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   border-bottom:1px solid var(--border);
   -webkit-backdrop-filter:blur(18px);
   backdrop-filter:blur(18px);
+  overflow:hidden;
   z-index:1000;
   transition:background .4s, border-color .4s;
+}
+.site-header::before {
+  content:'';
+  position:absolute; inset:-18px;
+  background:
+    linear-gradient(90deg,rgba(5,5,10,.88),rgba(5,5,10,.68),rgba(5,5,10,.88)),
+    url('photos/me.webp') center 38% / cover no-repeat;
+  filter:blur(10px) saturate(1.15);
+  opacity:.42;
+  pointer-events:none;
+}
+html.light .site-header::before {
+  background:
+    linear-gradient(90deg,rgba(244,244,248,.9),rgba(244,244,248,.72),rgba(244,244,248,.9)),
+    url('photos/me.webp') center 38% / cover no-repeat;
+  opacity:.3;
 }
 .header-inner {
   height:100%;
   display:flex; justify-content:space-between; align-items:center;
+  position:relative;
+  z-index:1;
 }
 .logo {
   font-family:Arial,sans-serif;
@@ -451,17 +530,19 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 .nav-links a:hover { color:var(--text); }
 .nav-links a:hover::after { width:100%; }
 .nav-cta {
-  background:var(--grad) !important;
-  color:#fff !important;
+  background:rgba(255,255,255,.06) !important;
+  border:1px solid rgba(255,255,255,.18);
+  color:var(--text) !important;
   padding:9px 22px;
   border-radius:999px;
   font-size:.88rem !important;
-  box-shadow:0 0 20px rgba(168,85,247,.25);
-  transition:transform .25s, box-shadow .25s !important;
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 20px rgba(168,85,247,.12);
+  transition:transform .25s, box-shadow .25s, background .25s, border-color .25s !important;
 }
-.nav-cta::after { display:none !important; }
-.nav-cta:hover { transform:translateY(-2px) !important; box-shadow:0 4px 28px rgba(168,85,247,.45) !important; }
-
+.nav-cta::after { display:block; bottom:-7px; }
+.nav-cta:hover { background:rgba(255,255,255,.12) !important; transform:translateY(-2px) !important; box-shadow:0 4px 28px rgba(168,85,247,.25) !important; }
 /* ============================================================
    BUTTONS
 ============================================================ */
@@ -485,10 +566,19 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
 .btn-primary:hover { transform:translateY(-3px); box-shadow:0 16px 48px rgba(168,85,247,.4); }
 .btn-primary:hover::before { opacity:1; }
 .btn-secondary {
-  background:rgba(255,255,255,.06); color:#fff;
-  border:1px solid rgba(255,255,255,.14);
+  background:color-mix(in srgb, var(--purple) 7%, transparent);
+  color:var(--text);
+  border:1px solid color-mix(in srgb, var(--purple) 58%, transparent);
+  box-shadow:0 0 18px color-mix(in srgb, var(--purple) 12%, transparent);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
 }
-.btn-secondary:hover { background:rgba(255,255,255,.12); transform:translateY(-2px); }
+.btn-secondary:hover {
+  background:color-mix(in srgb, var(--purple) 16%, transparent);
+  border-color:var(--purple);
+  box-shadow:0 8px 26px color-mix(in srgb, var(--purple) 24%, transparent);
+  transform:translateY(-2px);
+}
 
 /* ============================================================
    HERO
@@ -1827,12 +1917,14 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
     <a class="logo" href="#home">RB</a>
     <nav class="nav-links">
       <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
       <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
       <a href="#certificates">Certificates</a>
+      <a href="#projects">Projects</a>
       <a href="#contact" class="nav-cta">Contact</a>
+      <button id="palette-toggle" aria-label="Choose site color" title="Choose site color"><span class="palette-swatch"></span>🎨</button>
       <button id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">🌙</button>
+      <input id="palette-picker" type="color" value="#9278f0" aria-label="Choose site color">
     </nav>
   </div>
 </header>
@@ -2457,16 +2549,24 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 /* ===== ACTIVE NAV ===== */
 const navLinks=document.querySelectorAll('.nav-links a[href^="#"]');
+function setActiveNav(targetId){
+  navLinks.forEach(link=>link.classList.toggle('active',link.getAttribute('href')===`#${targetId}`));
+}
+navLinks.forEach(link=>{
+  link.addEventListener('click',()=>setActiveNav(link.getAttribute('href').slice(1)));
+});
 const navObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting)
-      navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
+      setActiveNav(e.target.id);
   });
-},{threshold:.4});
+},{rootMargin:'-20% 0px -55% 0px',threshold:0});
 document.querySelectorAll('section[id]').forEach(s=>navObs.observe(s));
+setActiveNav(location.hash ? location.hash.slice(1) : 'home');
 
 /* ===== DARK / LIGHT MODE ===== */
 const toggleBtn=document.getElementById('theme-toggle');
+const paletteBtn=document.getElementById('palette-toggle');
 const html=document.documentElement;
 // Saved preference
 if(localStorage.getItem('theme')==='light'){
@@ -2482,13 +2582,33 @@ toggleBtn.addEventListener('click',()=>{
   setTimeout(()=>toggleBtn.style.transform='',400);
 });
 
+/* ===== CUSTOM COLOR PALETTE ===== */
+const palettePicker=document.getElementById('palette-picker');
+const savedColor=localStorage.getItem('siteColor');
+function applySiteColor(color){
+  html.style.setProperty('--purple',color);
+  html.style.setProperty('--indigo',color);
+  html.style.setProperty('--pink',color);
+  html.style.setProperty('--grad',`linear-gradient(135deg,${color},color-mix(in srgb, ${color} 72%, white),color-mix(in srgb, ${color} 68%, black))`);
+  html.style.setProperty('--grad-soft',`linear-gradient(135deg,color-mix(in srgb, ${color} 15%, transparent),color-mix(in srgb, ${color} 10%, transparent))`);
+  palettePicker.value=color;
+}
+if(savedColor && /^#[0-9a-f]{6}$/i.test(savedColor)) applySiteColor(savedColor);
+paletteBtn.addEventListener('click',()=>palettePicker.click());
+palettePicker.addEventListener('input',event=>{
+  applySiteColor(event.target.value);
+  localStorage.setItem('siteColor',event.target.value);
+  paletteBtn.style.transform='rotate(360deg) scale(1.2)';
+  setTimeout(()=>paletteBtn.style.transform='',400);
+});
+
+/* ===== CERTIFICATE MODAL ===== */
 /* ===== CV DOWNLOAD ===== */
 const cvBtn=document.getElementById('cv-btn');
 cvBtn.addEventListener('click',()=>{
   window.open('cv.html','_blank','noopener');
 });
 
-/* ===== CERTIFICATE MODAL ===== */
 const certOverlay=document.getElementById('cert-overlay');
 const certClose=document.getElementById('cert-close');
 
