@@ -164,9 +164,7 @@ html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
 .palette-control {
   position:relative;
   display:flex;
-  flex-direction:column;
   align-items:center;
-  gap:3px;
   flex-shrink:0;
 }
 #palette-toggle:hover {
@@ -176,13 +174,87 @@ html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
   box-shadow:0 0 18px rgba(146,120,240,.3);
 }
 #palette-picker {
-  position:fixed;
-  top:calc(var(--header-h) + 8px);
-  right:12px;
-  width:1px; height:1px;
-  opacity:0;
-  pointer-events:none;
+  width:38px; height:38px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  cursor:pointer;
 }
+#palette-picker::-webkit-color-swatch-wrapper { padding:0; }
+#palette-picker::-webkit-color-swatch {
+  border:2px solid rgba(255,255,255,.7);
+  border-radius:50%;
+}
+#palette-panel {
+  position:absolute;
+  top:calc(100% + 14px);
+  right:0;
+  width:214px;
+  padding:14px;
+  display:grid;
+  gap:12px;
+  background:rgba(12,12,20,.94);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;
+  box-shadow:0 18px 45px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.08);
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px) scale(.96);
+  transform-origin:top right;
+  transition:opacity .22s ease, transform .22s ease, visibility .22s;
+  z-index:1200;
+}
+#palette-panel.open {
+  opacity:1;
+  visibility:visible;
+  transform:none;
+}
+.palette-panel-title {
+  color:var(--text);
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.palette-swatches {
+  display:flex;
+  gap:8px;
+}
+.palette-choice {
+  width:25px; height:25px;
+  padding:0;
+  border:2px solid rgba(255,255,255,.42);
+  border-radius:50%;
+  cursor:pointer;
+  transition:transform .2s, border-color .2s;
+}
+.palette-choice:hover,
+.palette-choice:focus-visible { transform:scale(1.16); border-color:#fff; }
+.palette-choice[data-color="#9278f0"] { background:#9278f0; }
+.palette-choice[data-color="#22d3ee"] { background:#22d3ee; }
+.palette-choice[data-color="#34d399"] { background:#34d399; }
+.palette-choice[data-color="#f97316"] { background:#f97316; }
+.palette-choice[data-color="#f43f5e"] { background:#f43f5e; }
+.palette-custom {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.1);
+  color:var(--muted);
+  font-size:.78rem;
+}
+html.light #palette-panel {
+  background:rgba(245,245,250,.96);
+  border-color:rgba(0,0,0,.12);
+  box-shadow:0 18px 45px rgba(0,0,0,.16);
+}
+html.light .palette-custom { border-top-color:rgba(0,0,0,.1); }
+html.light .palette-choice { border-color:rgba(0,0,0,.35); }
 
 /* ============================================================
    CV DOWNLOAD BUTTON
@@ -1924,7 +1996,18 @@ html.light .site-header::before {
       <a href="#projects">Projects</a>
       <a href="#contact" class="nav-cta">Contact</a>
       <div class="palette-control">
-        <button id="palette-toggle" aria-label="Choose site color" title="Choose site color">🎨</button>
+        <button id="palette-toggle" aria-label="Choose site color" aria-expanded="false" title="Choose site color">🎨</button>
+        <div id="palette-panel" role="dialog" aria-label="Choose site color">
+          <span class="palette-panel-title">Accent color</span>
+          <div class="palette-swatches">
+            <button class="palette-choice" type="button" data-color="#9278f0" aria-label="Violet palette"></button>
+            <button class="palette-choice" type="button" data-color="#22d3ee" aria-label="Cyan palette"></button>
+            <button class="palette-choice" type="button" data-color="#34d399" aria-label="Green palette"></button>
+            <button class="palette-choice" type="button" data-color="#f97316" aria-label="Orange palette"></button>
+            <button class="palette-choice" type="button" data-color="#f43f5e" aria-label="Red palette"></button>
+          </div>
+          <label class="palette-custom">Custom color <input id="palette-picker" type="color" value="#9278f0" aria-label="Choose custom site color"></label>
+        </div>
       </div>
       <button id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">🌙</button>
       <input id="palette-picker" type="color" value="#9278f0" aria-label="Choose site color">
@@ -2570,6 +2653,7 @@ setActiveNav(location.hash ? location.hash.slice(1) : 'home');
 /* ===== DARK / LIGHT MODE ===== */
 const toggleBtn=document.getElementById('theme-toggle');
 const paletteBtn=document.getElementById('palette-toggle');
+const palettePanel=document.getElementById('palette-panel');
 const html=document.documentElement;
 // Saved preference
 if(localStorage.getItem('theme')==='light'){
@@ -2597,12 +2681,25 @@ function applySiteColor(color){
   palettePicker.value=color;
 }
 if(savedColor && /^#[0-9a-f]{6}$/i.test(savedColor)) applySiteColor(savedColor);
-paletteBtn.addEventListener('click',()=>palettePicker.click());
+paletteBtn.addEventListener('click',()=>{
+  const isOpen=palettePanel.classList.toggle('open');
+  paletteBtn.setAttribute('aria-expanded',String(isOpen));
+});
+document.addEventListener('click',event=>{
+  if(!event.target.closest('.palette-control')){
+    palettePanel.classList.remove('open');
+    paletteBtn.setAttribute('aria-expanded','false');
+  }
+});
+document.querySelectorAll('.palette-choice').forEach(choice=>{
+  choice.addEventListener('click',()=>{
+    applySiteColor(choice.dataset.color);
+    localStorage.setItem('siteColor',choice.dataset.color);
+  });
+});
 palettePicker.addEventListener('input',event=>{
   applySiteColor(event.target.value);
   localStorage.setItem('siteColor',event.target.value);
-  paletteBtn.style.transform='rotate(360deg) scale(1.2)';
-  setTimeout(()=>paletteBtn.style.transform='',400);
 });
 
 /* ===== CERTIFICATE MODAL ===== */
