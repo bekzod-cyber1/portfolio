@@ -516,6 +516,7 @@ html.light .site-header::before {
   position:relative;
   z-index:1;
 }
+.mobile-menu-toggle { display:none; }
 .logo {
   font-family:Arial,sans-serif;
   font-size:1.8rem; font-weight:800;
@@ -1173,7 +1174,50 @@ html.light .site-header::before {
 @media(max-width:720px) {
   :root { --header-h:60px; }
   .project-grid { grid-template-columns:1fr; }
-  .nav-links { gap:18px; }
+  .header-inner { gap:12px; }
+  .mobile-menu-toggle {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:4px;
+    width:40px; height:40px;
+    flex-shrink:0;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+  }
+  .mobile-menu-toggle span { width:16px; height:2px; margin:0 auto; background:currentColor; border-radius:2px; transition:transform .25s, opacity .25s; }
+  .mobile-menu-toggle.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+  .mobile-menu-toggle.open span:nth-child(2) { opacity:0; }
+  .mobile-menu-toggle.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+  .nav-links {
+    position:absolute;
+    top:calc(100% + 8px);
+    right:14px;
+    left:14px;
+    width:auto;
+    flex:none;
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    gap:4px;
+    padding:10px;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:0 18px 50px rgba(0,0,0,.28);
+    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(20px);
+    overflow:visible;
+  }
+  .nav-links.open { display:flex; }
+  .nav-links a { padding:10px 12px; }
+  .nav-links .nav-cta { text-align:center; margin-top:4px; }
+  .nav-links .palette-control,
+  .nav-links > #theme-toggle { align-self:flex-start; margin:4px 0 0 8px; }
+  .nav-links > #theme-toggle { align-self:flex-end; margin-top:-42px; margin-right:8px; }
   .hero { padding-top:calc(var(--header-h) + 40px); }
   .main-title { font-size:clamp(2.4rem,9vw,3.4rem); }
   .about-section,.projects-section,.contact-section { padding:80px 0; }
@@ -1183,7 +1227,9 @@ html.light .site-header::before {
 @media(max-width:480px) {
   .container { width:calc(100% - 28px); }
   .main-title { font-size:2.4rem; }
-  .nav-links a:not(.nav-cta) { display:none; }
+  .nav-links { gap:14px; }
+  .nav-links a { font-size:.82rem; }
+  .nav-cta { padding:8px 16px; }
   .card-img-wrap { height:180px; }
 }
 
@@ -1933,6 +1979,9 @@ html.light .site-header::before {
 <header class="site-header">
   <div class="container header-inner">
     <a class="logo" href="#home">RB</a>
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <nav class="nav-links">
       <a href="#home">Home</a>
       <a href="#gallery">Gallery</a>
@@ -2570,6 +2619,18 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 /* ===== ACTIVE NAV ===== */
 const navLinks=document.querySelectorAll('.nav-links a[href^="#"]');
+const mobileMenuToggle=document.getElementById('mobile-menu-toggle');
+const mobileNav=document.querySelector('.nav-links');
+mobileMenuToggle.addEventListener('click',()=>{
+  const isOpen=mobileNav.classList.toggle('open');
+  mobileMenuToggle.classList.toggle('open',isOpen);
+  mobileMenuToggle.setAttribute('aria-expanded',String(isOpen));
+});
+navLinks.forEach(link=>link.addEventListener('click',()=>{
+  mobileNav.classList.remove('open');
+  mobileMenuToggle.classList.remove('open');
+  mobileMenuToggle.setAttribute('aria-expanded','false');
+}));
 function setActiveNav(targetId){
   navLinks.forEach(link=>link.classList.toggle('active',link.getAttribute('href')===`#${targetId}`));
 }
