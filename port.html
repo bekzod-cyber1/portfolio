@@ -159,10 +159,17 @@ html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
   cursor:pointer;
   font-size:1.05rem;
   flex-shrink:0;
-  gap:3px;
   transition:background .3s, border-color .3s, transform .3s, box-shadow .3s;
 }
-#palette-toggle .palette-swatch {
+.palette-control {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  flex-shrink:0;
+}
+.palette-swatch {
   width:12px; height:12px;
   border-radius:50%;
   background:var(--purple);
@@ -1922,7 +1929,10 @@ html.light .site-header::before {
       <a href="#certificates">Certificates</a>
       <a href="#projects">Projects</a>
       <a href="#contact" class="nav-cta">Contact</a>
-      <button id="palette-toggle" aria-label="Choose site color" title="Choose site color"><span class="palette-swatch"></span>🎨</button>
+      <div class="palette-control">
+        <button id="palette-toggle" aria-label="Choose site color" title="Choose site color">🎨</button>
+        <span class="palette-swatch" aria-hidden="true"></span>
+      </div>
       <button id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">🌙</button>
       <input id="palette-picker" type="color" value="#9278f0" aria-label="Choose site color">
     </nav>
