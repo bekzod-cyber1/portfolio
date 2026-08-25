@@ -169,14 +169,6 @@ html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
   gap:3px;
   flex-shrink:0;
 }
-.palette-swatch {
-  width:12px; height:12px;
-  border-radius:50%;
-  background:var(--purple);
-  border:2px solid rgba(255,255,255,.8);
-  box-shadow:0 0 8px color-mix(in srgb, var(--purple) 65%, transparent);
-  flex-shrink:0;
-}
 #palette-toggle:hover {
   background:rgba(146,120,240,.15);
   border-color:rgba(146,120,240,.4);
@@ -1931,7 +1923,6 @@ html.light .site-header::before {
       <a href="#contact" class="nav-cta">Contact</a>
       <div class="palette-control">
         <button id="palette-toggle" aria-label="Choose site color" title="Choose site color">🎨</button>
-        <span class="palette-swatch" aria-hidden="true"></span>
       </div>
       <button id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">🌙</button>
       <input id="palette-picker" type="color" value="#9278f0" aria-label="Choose site color">
