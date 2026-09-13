@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="uz">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
    RESET & ROOT — DARK MODE (default)
 ============================================================ */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; overflow-x:hidden; }
 :root {
   --bg:        #05050a;
   --bg2:       #0c0c14;
@@ -42,6 +42,9 @@ html { scroll-behavior:smooth; }
   --heading:   #f5f7ff;
   --soft-text: #c7d2fe;
   --inverse:   #ffffff;
+  --accent-text: #9278f0;
+  --accent-foreground: #ffffff;
+  --accent-glow: rgba(146,120,240,.28);
 }
 html.palette-cyan {
   --purple: #22d3ee;
@@ -67,7 +70,7 @@ html.light {
   --card:      rgba(255,255,255,0.75);
   --border:    rgba(0,0,0,0.09);
   --text:      #0f0f1a;
-  --muted:     #5a6070;
+  --muted:     #53596a;
   --header-bg: rgba(244,244,248,.85);
   --input-bg:  rgba(0,0,0,.04);
   --input-border: rgba(0,0,0,.10);
@@ -297,7 +300,7 @@ html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
 .cert-info-item h4 {
   font-size:.75rem; font-weight:700;
   text-transform:uppercase; letter-spacing:.1em;
-  color:var(--purple); margin-bottom:6px;
+  color:var(--accent-text); margin-bottom:6px;
 }
 .cert-info-item p {
   color:var(--muted); font-size:.88rem; line-height:1.7;
@@ -394,11 +397,63 @@ body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba
   position:fixed; inset:0; background:var(--bg);
   z-index:9999; pointer-events:none;
   display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:18px;
   opacity:1; transition:opacity .9s ease .6s;
 }
 #page-loader.hide { opacity:0; }
+.loader-notification {
+  position:absolute;
+  top:24px;
+  left:50%;
+  overflow:hidden;
+  isolation:isolate;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:min(336px,calc(100% - 36px));
+  padding:13px 15px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:22px;
+  background:rgba(255,255,255,.065);
+  -webkit-backdrop-filter:blur(32px) saturate(1.35);
+  backdrop-filter:blur(32px) saturate(1.35);
+  box-shadow:0 18px 55px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.18);
+  opacity:0;
+  transform:translate(-50%,-12px) scale(.95);
+  will-change:opacity,transform;
+  animation:loaderNotificationIn .75s .25s cubic-bezier(.16,1,.3,1) forwards;
+}
+.loader-notification::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(115deg,rgba(255,255,255,.15),transparent 42%,rgba(255,255,255,.025));
+  pointer-events:none;
+}
+.loader-notification-icon {
+  width:34px; height:34px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:11px;
+  color:#fff;
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.02em;
+  background:linear-gradient(145deg,var(--accent-text),color-mix(in srgb,var(--accent-text) 58%,#111));
+  box-shadow:0 5px 14px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.loader-notification-copy { min-width:0; text-align:left; }
+.loader-notification-copy strong,
+.loader-notification-copy span { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.loader-notification-copy strong { color:var(--heading); font-size:.74rem; font-weight:800; letter-spacing:-.01em; }
+.loader-notification-copy span { margin-top:3px; color:var(--muted); font-size:.65rem; letter-spacing:.01em; }
+@keyframes loaderNotificationIn {
+  to { opacity:1; transform:translate(-50%,0) scale(1); }
+}
 .loader-logo {
-  font-size:3rem; font-weight:800; color:var(--purple);
+  font-size:1.8rem; font-weight:800; color:var(--accent-text);
   animation:loaderPulse 1.2s ease-in-out infinite alternate;
   font-family:Arial,sans-serif;
 }
@@ -520,7 +575,8 @@ html.light .site-header::before {
 .logo {
   font-family:Arial,sans-serif;
   font-size:1.8rem; font-weight:800;
-  color:var(--purple);
+  color:var(--accent-text);
+  text-shadow:0 0 14px var(--accent-glow);
   -webkit-user-select:none;
   user-select:none;
   animation:ongga-aylanish 6s linear infinite;
@@ -573,7 +629,7 @@ html.light .site-header::before {
   position:relative; overflow:hidden;
 }
 .btn-primary {
-  background:var(--grad); color:#fff;
+  background:var(--grad); color:var(--accent-foreground);
   box-shadow:0 8px 32px rgba(168,85,247,.25);
 }
 .btn-primary::before {
@@ -654,7 +710,7 @@ html.light .site-header::before {
 #typed-text::after {
   content:'|';
   animation:blink .8s step-end infinite;
-  color:var(--purple);
+  color:var(--accent-text);
 }
 @keyframes blink {
   0%,100%{ opacity:1; } 50%{ opacity:0; }
@@ -739,7 +795,7 @@ html.light .site-header::before {
   border-radius:16px; padding:14px 22px;
   text-align:center;
 }
-.hero-stat strong { display:block; font-size:1.5rem; font-weight:800; color:var(--purple); }
+.hero-stat strong { display:block; font-size:1.5rem; font-weight:800; color:var(--accent-text); }
 .hero-stat span   { font-size:.78rem; color:var(--muted); }
 
 .hero-glow {
@@ -760,7 +816,8 @@ html.light .site-header::before {
 .section-label {
   display:inline-block;
   font-size:.72rem; font-weight:700; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--purple);
+  text-transform:uppercase; color:var(--accent-text);
+  text-shadow:0 0 10px var(--accent-glow);
   margin-bottom:12px;
 }
 .section-title {
@@ -783,7 +840,7 @@ html.light .site-header::before {
   color:var(--muted); line-height:1.7;
 }
 .about-highlight-item strong { color:var(--text); }
-.about-highlight-item svg { flex-shrink:0; margin-top:3px; color:var(--purple); }
+.about-highlight-item svg { flex-shrink:0; margin-top:3px; color:var(--accent-text); filter:drop-shadow(0 0 5px var(--accent-glow)); }
 .hero-signature {
   display:flex; flex-wrap:wrap; align-items:center; gap:10px;
   margin:10px 0 0;
@@ -884,7 +941,7 @@ html.light .site-header::before {
 }
 .timeline-year {
   display:inline-block; margin-bottom:6px; font-size:.72rem; font-weight:800;
-  letter-spacing:.12em; color:var(--purple); text-transform:uppercase;
+  letter-spacing:.12em; color:var(--accent-text); text-transform:uppercase;
 }
 .timeline-content h4 {
   font-size:1rem; font-weight:700; color:#e0e7ff; margin-bottom:6px;
@@ -917,7 +974,7 @@ html.light .site-header::before {
   border-color:rgba(146,120,240,.3);
   box-shadow:0 16px 48px rgba(99,102,241,.1);
 }
-.info-card h3 { font-size:2rem; font-weight:800; margin-bottom:6px; color:var(--purple); }
+.info-card h3 { font-size:2rem; font-weight:800; margin-bottom:6px; color:var(--accent-text); text-shadow:0 0 12px var(--accent-glow); }
 .info-card p  { color:var(--muted); font-size:.9rem; }
 
 /* ============================================================
@@ -1071,7 +1128,7 @@ html.light .site-header::before {
 .contact-method strong { display:block; color:var(--text); font-size:.95rem; margin-bottom:2px; }
 .contact-method span { color:var(--muted); font-size:.9rem; line-height:1.5; }
 .contact-method a {
-  color:var(--purple); font-weight:700; white-space:nowrap;
+  color:var(--accent-text); font-weight:700; white-space:nowrap;
 }
 .contact-note {
   color:var(--muted); font-size:.92rem; line-height:1.75; margin-bottom:8px;
@@ -1119,7 +1176,7 @@ html.light .site-header::before {
   position:relative; z-index:1;
   font-size:.88rem;
 }
-.footer span { color:var(--purple); }
+.footer span { color:var(--accent-text); text-shadow:0 0 9px var(--accent-glow); }
 
 /* ============================================================
    SCROLL REVEAL
@@ -1220,6 +1277,8 @@ html.light .site-header::before {
   .nav-links > #theme-toggle { align-self:flex-end; margin-top:-42px; margin-right:8px; }
   .hero { padding-top:calc(var(--header-h) + 40px); }
   .main-title { font-size:clamp(2.4rem,9vw,3.4rem); }
+  .reveal.reveal--left,
+  .reveal.reveal--right { transform:translateY(30px); }
   .about-section,.projects-section,.contact-section { padding:80px 0; }
   .contact-grid { grid-template-columns:1fr; }
   .contact-form { padding:24px; }
@@ -1311,7 +1370,7 @@ html.light .site-header::before {
 .modal-body p  { color:var(--muted); line-height:1.85; margin-bottom:20px; }
 .case-study { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:0 0 24px; }
 .case-study-item { padding:14px; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:14px; }
-.case-study-item h3 { margin:0 0 6px; color:var(--purple); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; }
+.case-study-item h3 { margin:0 0 6px; color:var(--accent-text); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; }
 .case-study-item p { margin:0; font-size:.82rem; line-height:1.65; }
 @media(max-width:560px) { .case-study { grid-template-columns:1fr; } }
 .modal-tech { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
@@ -1439,7 +1498,7 @@ html.light .site-header::before {
 .certificate-card p { color:var(--muted); font-size:.84rem; line-height:1.6; margin:0 0 12px; }
 .certificate-card .cert-badge { display:inline-block; margin:0; }
 .modal-project-links { margin-top:16px; }
-.cert-verify-link { color:var(--purple); word-break:break-word; }
+.cert-verify-link { color:var(--accent-text); word-break:break-word; }
 @media(max-width:768px) { .certificate-grid { grid-template-columns:1fr; } }
 @media(max-width:520px) { .certificate-card { grid-template-columns:1fr; } }
 
@@ -1670,7 +1729,7 @@ html.light .site-header::before {
   animation:hintBounce 1.4s ease-in-out infinite;
 }
 @keyframes hintPulse {
-  0%,100%{ opacity:.5; } 50%{ opacity:1; color:var(--purple); }
+  0%,100%{ opacity:.5; } 50%{ opacity:1; color:var(--accent-text); }
 }
 @keyframes hintBounce {
   0%,100%{ transform:translateY(0); }
@@ -1878,7 +1937,13 @@ html.light .site-header::before {
 
 <!-- Page loader -->
 <div id="page-loader">
-  <div class="loader-logo">RB</div>
+  <div class="loader-notification" aria-hidden="true">
+    <div class="loader-notification-icon">RB</div>
+    <div class="loader-notification-copy">
+      <strong>Welcome to Rustamov Bekzod’s Portfolio</strong>
+      <span>Academic profile and professional work</span>
+    </div>
+  </div>
   <div class="loader-bar"></div>
 </div>
 
@@ -1895,7 +1960,7 @@ html.light .site-header::before {
 <button id="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <!-- Cert Modal -->
-<div id="cert-overlay" role="dialog" aria-modal="true">
+<div id="cert-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cert-title">
   <div class="cert-modal-box">
     <button class="cert-close" id="cert-close" aria-label="Close">✕</button>
     <img class="cert-modal-img" id="cert-img" src="" alt="Course certificate">
@@ -1935,7 +2000,7 @@ html.light .site-header::before {
 </div>
 
 <!-- Project Modal -->
-<div id="modal-overlay" role="dialog" aria-modal="true" aria-label="Project details">
+<div id="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
   <div class="modal-box">
     <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
     <img class="modal-img" id="modal-img" src="" alt="">
@@ -1986,6 +2051,7 @@ html.light .site-header::before {
       <a href="#home">Home</a>
       <a href="#gallery">Gallery</a>
       <a href="#about">About</a>
+      <a href="#journey">Journey</a>
       <a href="#certificates">Certificates</a>
       <a href="#projects">Projects</a>
       <a href="#contact" class="nav-cta">Contact</a>
@@ -2582,6 +2648,31 @@ document.querySelectorAll('.card').forEach(card=>{
 
 /* ===== PROJECT MODAL ===== */
 const overlay=document.getElementById('modal-overlay');
+const dialogPreviousFocus=new WeakMap();
+function focusableElements(dialog){
+  return [...dialog.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+}
+function activateDialog(dialog, initialSelector){
+  dialogPreviousFocus.set(dialog,document.activeElement);
+  const initial=dialog.querySelector(initialSelector) || focusableElements(dialog)[0];
+  if(initial) initial.focus({preventScroll:true});
+}
+function deactivateDialog(dialog){
+  const previous=dialogPreviousFocus.get(dialog);
+  dialogPreviousFocus.delete(dialog);
+  if(previous && typeof previous.focus==='function') previous.focus({preventScroll:true});
+}
+document.addEventListener('keydown',event=>{
+  if(event.key!=='Tab') return;
+  const dialog=document.querySelector('[role="dialog"].open');
+  if(!dialog) return;
+  const focusable=focusableElements(dialog);
+  if(!focusable.length) return;
+  const first=focusable[0];
+  const last=focusable[focusable.length-1];
+  if(event.shiftKey && document.activeElement===first){event.preventDefault();last.focus();}
+  else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first.focus();}
+});
 function openModal(card){
   const modalImg=document.getElementById('modal-img');
   modalImg.src=card.dataset.img;
@@ -2599,14 +2690,16 @@ function openModal(card){
   document.getElementById('case-process').textContent=card.dataset.process||'';
   document.getElementById('case-solution').textContent=card.dataset.solution||'';
   document.getElementById('case-result').textContent=card.dataset.result||'';
-  const tb=document.getElementById('modal-tech');tb.innerHTML='';
+  const tb=document.getElementById('modal-tech');tb.replaceChildren();
   card.dataset.tech.split(',').forEach(t=>{
     const s=document.createElement('span');s.className='tech-badge';s.textContent=t.trim();tb.appendChild(s);
   });
   overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
   document.body.style.overflow='hidden';
+  activateDialog(overlay,'.modal-close');
 }
-function closeModal(){overlay.classList.remove('open');document.body.style.overflow='';}
+function closeModal(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.style.overflow='';deactivateDialog(overlay);}
 document.querySelectorAll('.card[data-modal]').forEach(c=>{
   c.addEventListener('click',()=>openModal(c));
   c.addEventListener('keydown',e=>{
@@ -2650,6 +2743,47 @@ setActiveNav(location.hash ? location.hash.slice(1) : 'home');
 const toggleBtn=document.getElementById('theme-toggle');
 const paletteBtn=document.getElementById('palette-toggle');
 const html=document.documentElement;
+function getRgb(hex){
+  const value=hex.replace('#','');
+  return [parseInt(value.slice(0,2),16),parseInt(value.slice(2,4),16),parseInt(value.slice(4,6),16)];
+}
+function getLuminance(rgb){
+  return rgb.reduce((total,channel,index)=>{
+    const normalized=channel/255;
+    const linear=normalized<=.03928?normalized/12.92:Math.pow((normalized+.055)/1.055,2.4);
+    return total+[.2126,.7152,.0722][index]*linear;
+  },0);
+}
+function getContrast(first,second){
+  const lighter=Math.max(getLuminance(first),getLuminance(second));
+  const darker=Math.min(getLuminance(first),getLuminance(second));
+  return (lighter+.05)/(darker+.05);
+}
+function blendRgb(color,target,amount){
+  return color.map((channel,index)=>Math.round(channel+(target[index]-channel)*amount));
+}
+function rgbToHex(rgb){
+  return `#${rgb.map(channel=>channel.toString(16).padStart(2,'0')).join('')}`;
+}
+function getReadableAccent(color){
+  const accent=getRgb(color);
+  const background=getRgb(html.classList.contains('light')?'#f4f4f8':'#05050a');
+  let readable=accent;
+  const target=getLuminance(background)>.5?[0,0,0]:[255,255,255];
+  let amount=0;
+  while(getContrast(readable,background)<4.5&&amount<1){
+    amount+=.05;
+    readable=blendRgb(accent,target,amount);
+  }
+  return rgbToHex(readable);
+}
+function updateAccentContrast(color){
+  const accent=getRgb(color);
+  const foreground=getContrast(accent,[255,255,255])>=getContrast(accent,[0,0,0])?'#ffffff':'#111111';
+  html.style.setProperty('--accent-text',getReadableAccent(color));
+  html.style.setProperty('--accent-foreground',foreground);
+  html.style.setProperty('--accent-glow',`rgba(${accent.join(',')},.28)`);
+}
 // Saved preference
 if(localStorage.getItem('theme')==='light'){
   html.classList.add('light');toggleBtn.textContent='☀️';
@@ -2659,6 +2793,7 @@ toggleBtn.addEventListener('click',()=>{
   const isLight=html.classList.contains('light');
   toggleBtn.textContent=isLight?'☀️':'🌙';
   localStorage.setItem('theme',isLight?'light':'dark');
+  updateAccentContrast(palettePicker.value);
   // smooth icon swap
   toggleBtn.style.transform='rotate(360deg) scale(1.2)';
   setTimeout(()=>toggleBtn.style.transform='',400);
@@ -2675,6 +2810,7 @@ function applySiteColor(color){
   html.style.setProperty('--pink',color);
   html.style.setProperty('--grad',`linear-gradient(135deg,${color},color-mix(in srgb, ${color} 72%, white),color-mix(in srgb, ${color} 68%, black))`);
   html.style.setProperty('--grad-soft',`linear-gradient(135deg,color-mix(in srgb, ${color} 15%, transparent),color-mix(in srgb, ${color} 10%, transparent))`);
+  updateAccentContrast(color);
   palettePicker.value=color;
 }
 function resetSiteColor(){
@@ -2683,10 +2819,12 @@ function resetSiteColor(){
   html.style.removeProperty('--pink');
   html.style.removeProperty('--grad');
   html.style.removeProperty('--grad-soft');
+  updateAccentContrast(defaultColors.purple);
   palettePicker.value=defaultColors.purple;
   localStorage.removeItem('siteColor');
 }
 if(savedColor && /^#[0-9a-f]{6}$/i.test(savedColor)) applySiteColor(savedColor);
+else updateAccentContrast(defaultColors.purple);
 paletteBtn.addEventListener('click',()=>palettePicker.click());
 paletteReset.addEventListener('click',resetSiteColor);
 palettePicker.addEventListener('input',event=>{
@@ -2706,6 +2844,33 @@ cvBtn.addEventListener('click',()=>{
 const certOverlay=document.getElementById('cert-overlay');
 const certClose=document.getElementById('cert-close');
 
+function setCertificateVerification(container, issuer, platform, verifyUrl){
+  const issuerStrong=document.createElement('strong');
+  issuerStrong.className='cert-emphasis';
+  issuerStrong.textContent=issuer;
+
+  const platformStrong=document.createElement('strong');
+  platformStrong.className='cert-emphasis';
+  platformStrong.textContent=platform;
+
+  const verifyLink=document.createElement('a');
+  verifyLink.className='cert-emphasis cert-verify-link';
+  verifyLink.href=verifyUrl || '#';
+  verifyLink.target='_blank';
+  verifyLink.rel='noopener';
+  verifyLink.textContent=verifyUrl || 'verification link';
+
+  container.replaceChildren(
+    document.createTextNode('Issued by '),
+    issuerStrong,
+    document.createTextNode(' and delivered through '),
+    platformStrong,
+    document.createTextNode('. Verify this credential at '),
+    verifyLink,
+    document.createTextNode('.')
+  );
+}
+
 document.querySelectorAll('[data-img][data-title]').forEach(btn=>{
   if(!btn.classList.contains('card'))
     btn.addEventListener('click',()=>{
@@ -2713,10 +2878,10 @@ document.querySelectorAll('[data-img][data-title]').forEach(btn=>{
       document.getElementById('cert-title').textContent=btn.dataset.title||'Certificate';
       document.getElementById('cert-sub').textContent=btn.dataset.sub||'';
       document.getElementById('cert-download').href=btn.dataset.img;
-      document.getElementById('cert-about').innerHTML=btn.dataset.about||'';
+      document.getElementById('cert-about').textContent=btn.dataset.about||'';
       document.getElementById('cert-demonstrates').textContent=btn.dataset.demonstrates||'';
       const skills=document.getElementById('cert-skills');
-      skills.innerHTML='';
+      skills.replaceChildren();
       (btn.dataset.skills||'').split('|').filter(Boolean).forEach(skill=>{
         const tag=document.createElement('span');
         tag.className='cert-skill-tag';
@@ -2724,15 +2889,18 @@ document.querySelectorAll('[data-img][data-title]').forEach(btn=>{
         skills.appendChild(tag);
       });
       const verification=document.getElementById('cert-verification');
-      verification.innerHTML=`Issued by <strong class="cert-emphasis">${btn.dataset.issuer||''}</strong> and delivered through <strong class="cert-emphasis">${btn.dataset.platform||''}</strong>. Verify this credential at <a class="cert-emphasis cert-verify-link" href="${btn.dataset.verify||'#'}" target="_blank" rel="noopener">${btn.dataset.verify||'verification link'}</a>.`;
+      setCertificateVerification(verification,btn.dataset.issuer||'',btn.dataset.platform||'',btn.dataset.verify||'');
       certOverlay.classList.add('open');
+      certOverlay.setAttribute('aria-hidden','false');
       document.body.style.overflow='hidden';
+      activateDialog(certOverlay,'.cert-close');
     });
 });
 
-certClose.addEventListener('click',()=>{certOverlay.classList.remove('open');document.body.style.overflow='';});
-certOverlay.addEventListener('click',e=>{if(e.target===certOverlay){certOverlay.classList.remove('open');document.body.style.overflow='';}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){certOverlay.classList.remove('open');document.body.style.overflow='';}});
+    function closeCertModal(){certOverlay.classList.remove('open');certOverlay.setAttribute('aria-hidden','true');document.body.style.overflow='';deactivateDialog(certOverlay);}
+    certClose.addEventListener('click',closeCertModal);
+    certOverlay.addEventListener('click',e=>{if(e.target===certOverlay)closeCertModal();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCertModal();});
 
 /* ===== CERT INFO SCROLL ANIMATION ===== */
 const certBox = document.querySelector('.cert-modal-box');
@@ -2882,8 +3050,8 @@ document.querySelectorAll('[data-img][data-title]').forEach(btn => {
   if(!lb || !lbImg || !lbCnt) return;
 
   function setLb(i){ lbImg.src=uPhotos[i]; lbCnt.textContent=(i+1)+' / '+uPhotos.length; }
-  function openLb(i){ current=i; setLb(i); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-  function closeLb(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  function openLb(i){ current=i; setLb(i); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; activateDialog(lb,'.lb-close'); }
+  function closeLb(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; deactivateDialog(lb); }
   function prev(){ current=(current-1+uPhotos.length)%uPhotos.length; setLb(current); }
   function next(){ current=(current+1)%uPhotos.length; setLb(current); }
 

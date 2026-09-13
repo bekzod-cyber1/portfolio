@@ -18,6 +18,9 @@ if (form && statusBox) {
         return;
       }
 
+      const submitButton = form.querySelector('button[type="submit"]');
+      if (submitButton) submitButton.disabled = true;
+
       statusBox.textContent = 'Sending message...';
     statusBox.className = 'form-status';
 
@@ -43,7 +46,9 @@ if (form && statusBox) {
       const mailtoLink = `mailto:bbek75059@gmail.com?subject=${encodeURIComponent('Portfolio contact')}&body=${encodeURIComponent(`Name: ${payload.name || ''}\nEmail: ${payload.email || ''}\n\nMessage:\n${payload.message || ''}`)}`;
       statusBox.textContent = 'The form is ready to be sent. Please use your email app to contact me directly.';
       statusBox.classList.add('error');
-      window.open(mailtoLink, '_blank');
+      window.location.href = mailtoLink;
+    } finally {
+      if (submitButton) submitButton.disabled = false;
     }
   });
 }
