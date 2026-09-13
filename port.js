@@ -23,15 +23,19 @@ if (form && statusBox) {
 
       statusBox.textContent = 'Sending message...';
     statusBox.className = 'form-status';
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 12000);
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
+          signal: controller.signal
       });
 
-      const result = await response.json();
+        const contentType = response.headers.get('content-type') || '';
+        const result = contentType.includes('application/json') ? await response.json() : {};
 
       if (!response.ok || !result.ok) {
         throw new Error(result.message || 'Unable to send message.');
@@ -41,12 +45,19 @@ if (form && statusBox) {
       statusBox.classList.add('success');
       form.reset();
     } catch (error) {
-      console.error('Contact submit error:', error);
       const mailtoLink = `mailto:bbek75059@gmail.com?subject=${encodeURIComponent('Portfolio contact')}&body=${encodeURIComponent(`Name: ${payload.name || ''}\nEmail: ${payload.email || ''}\n\nMessage:\n${payload.message || ''}`)}`;
-      statusBox.textContent = 'The form is ready to be sent. Please use your email app to contact me directly.';
+      const fallbackLink = document.createElement('a');
+      fallbackLink.href = mailtoLink;
+      fallbackLink.textContent = 'Open email app';
+      fallbackLink.className = 'status-link';
+      statusBox.replaceChildren(
+        document.createTextNode('The online form is temporarily unavailable.'),
+        document.createTextNode(' '),
+        fallbackLink
+      );
       statusBox.classList.add('error');
-      window.location.href = mailtoLink;
     } finally {
+      window.clearTimeout(timeoutId);
       if (submitButton) submitButton.disabled = false;
     }
   });

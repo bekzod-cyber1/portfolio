@@ -10,8 +10,14 @@
   <meta property="og:description" content="Personal portfolio of Bekzod Rustamov, a frontend developer and UI/UX designer from Samarkand.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="me.jpg">
+  <meta property="og:image:alt" content="Rustamov Bekzod portfolio preview">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bekzod Rustamov | Frontend Developer & UI/UX Designer">
+  <meta name="twitter:description" content="Academic profile and professional work by Rustamov Bekzod.">
+  <meta name="twitter:image" content="me.jpg">
   <meta name="theme-color" content="#05050a">
   <title>Bekzod Rustamov | Frontend Developer & UI/UX Designer</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script type="application/ld+json">
     {
       "@context":"https://schema.org",
@@ -164,6 +170,26 @@ html.light #back-top { box-shadow:0 4px 20px rgba(168,85,247,.35); }
   border-color:rgba(146,120,240,.4);
   transform:rotate(20deg) scale(1.1);
   box-shadow:0 0 18px rgba(146,120,240,.3);
+}
+#language-toggle {
+  width:42px; height:42px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  border:1px solid var(--border);
+  border-radius:50%;
+  background:var(--card);
+  color:var(--text);
+  font-size:.66rem;
+  font-weight:800;
+  letter-spacing:.04em;
+  cursor:pointer;
+  transition:background .3s, border-color .3s, transform .3s, box-shadow .3s;
+}
+#language-toggle:hover {
+  background:rgba(146,120,240,.15);
+  border-color:rgba(146,120,240,.4);
+  transform:scale(1.08);
+  box-shadow:0 0 18px rgba(146,120,240,.25);
 }
 #palette-toggle {
   width:42px; height:42px;
@@ -1204,6 +1230,7 @@ html.light .site-header::before {
 .form-status { min-height:22px; font-size:.88rem; color:#c7d2fe; }
 .form-status.success { color:#4ade80; animation:statusIn .45s cubic-bezier(.22,1,.36,1) both; }
 .form-status.error   { color:#f87171; }
+.status-link { color:inherit; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
 @keyframes statusIn {
   from { opacity:0; transform:translateY(5px); }
   to { opacity:1; transform:none; }
@@ -1316,8 +1343,11 @@ html.light .site-header::before {
   .nav-links a { padding:10px 12px; }
   .nav-links .nav-cta { text-align:center; margin-top:4px; }
   .nav-links .palette-control,
-  .nav-links > #theme-toggle { align-self:flex-start; margin:4px 0 0 8px; }
-  .nav-links > #theme-toggle { align-self:flex-end; margin-top:-42px; margin-right:8px; }
+  .nav-links > #theme-toggle,
+  .nav-links > #language-toggle { align-self:flex-start; margin:4px 0 0 8px; }
+  .nav-links > #theme-toggle,
+  .nav-links > #language-toggle { align-self:flex-end; margin-top:-42px; margin-right:8px; }
+  .nav-links > #language-toggle { align-self:flex-start; margin:4px 0 0 62px; }
   .hero { padding-top:calc(var(--header-h) + 40px); }
   .main-title { font-size:clamp(2.4rem,9vw,3.4rem); }
   .reveal.reveal--left,
@@ -1491,6 +1521,42 @@ html.light .site-header::before {
   gap:48px;
   align-items:start;
 }
+.achievement-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.achievement-card {
+  position:relative;
+  min-height:190px;
+  padding:24px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  transition:transform .3s, border-color .3s, box-shadow .3s;
+}
+.achievement-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:3px;
+  background:var(--grad);
+}
+.achievement-card:hover {
+  transform:translateY(-5px);
+  border-color:color-mix(in srgb,var(--accent-text) 34%,transparent);
+  box-shadow:0 18px 46px rgba(0,0,0,.22);
+}
+.achievement-index {
+  color:var(--accent-text);
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+.achievement-card h3 { margin:24px 0 8px; font-size:1.05rem; color:var(--heading); }
+.achievement-card p { color:var(--muted); font-size:.84rem; line-height:1.7; }
+@media(max-width:900px) { .achievement-grid { grid-template-columns:1fr; } }
 
 /* Certificates */
 .cert-list { display:grid; gap:16px; }
@@ -1983,8 +2049,8 @@ html.light .site-header::before {
   <div class="loader-notification" aria-hidden="true">
     <div class="loader-notification-icon">RB</div>
     <div class="loader-notification-copy">
-      <strong>Welcome to Rustamov Bekzod’s Portfolio</strong>
-      <span>Academic profile and professional work</span>
+      <strong data-i18n="loader.title">Welcome to Rustamov Bekzod’s Portfolio</strong>
+      <span data-i18n="loader.subtitle">Academic profile and professional work</span>
     </div>
   </div>
   <div class="loader-bar"></div>
@@ -2091,18 +2157,20 @@ html.light .site-header::before {
       <span></span><span></span><span></span>
     </button>
     <nav class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#about">About</a>
-      <a href="#journey">Journey</a>
-      <a href="#certificates">Certificates</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+      <a href="#home" data-i18n="nav.home">Home</a>
+      <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#journey" data-i18n="nav.journey">Journey</a>
+      <a href="#certificates" data-i18n="nav.certificates">Certificates</a>
+      <a href="#achievements" data-i18n="nav.achievements">Achievements</a>
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
+      <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a>
       <div class="palette-control">
         <button id="palette-toggle" aria-label="Choose site color" title="Choose site color">🎨</button>
         <button id="palette-reset" aria-label="Reset site colors" title="Reset to original colors">↺</button>
       </div>
       <button id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">🌙</button>
+      <button id="language-toggle" type="button" aria-label="Switch language" title="Switch language">EN</button>
       <input id="palette-picker" type="color" value="#9278f0" aria-label="Choose site color">
     </nav>
   </div>
@@ -2351,7 +2419,7 @@ html.light .site-header::before {
         data-skills="Internet of Things|Wireless Technologies|Cloud Computing|Connected Devices|Emerging Technologies"
         data-issuer="Yonsei University" data-platform="Coursera"
         data-verify="https://coursera.org/verify/ZSGISTOB5T4T">
-        <img src="sert2.png" alt="Yonsei University IoT course certificate" loading="lazy">
+        <img src="sert2.webp" alt="Yonsei University IoT course certificate" loading="lazy">
         <span><strong class="cert-badge">Verified course</strong><h3>IoT Wireless &amp; Cloud Computing Technologies</h3><p>Yonsei University · Coursera · 2026</p><span class="project-link">View certificate ↗</span></span>
       </button>
       <button class="certificate-card reveal stagger-2"
@@ -2362,9 +2430,40 @@ html.light .site-header::before {
         data-skills="Generative AI|Large Language Models|Google Cloud|Machine Learning|Prompt Engineering|AI Ethics"
         data-issuer="Google Cloud" data-platform="Coursera"
         data-verify="https://coursera.org/verify/0CAU00B8PUNK">
-        <img src="sert1.png" alt="Google Cloud Introduction to Generative AI certificate" loading="lazy">
+        <img src="sert1.webp" alt="Google Cloud Introduction to Generative AI certificate" loading="lazy">
         <span><strong class="cert-badge">Verified course</strong><h3>Introduction to Generative AI</h3><p>Google Cloud · Coursera · 2026</p><span class="project-link">View certificate ↗</span></span>
       </button>
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- ===================== ACHIEVEMENTS ===================== -->
+<section id="achievements" class="achievements-section">
+  <div class="container">
+    <div class="section-header reveal reveal--fade">
+      <div>
+        <span class="section-label" data-i18n="achievements.label">Milestones</span>
+        <h2 class="section-title" data-i18n="achievements.title">Selected Achievements</h2>
+      </div>
+    </div>
+    <div class="achievement-grid">
+      <article class="achievement-card reveal stagger-1">
+        <span class="achievement-index">01 / CREDENTIAL</span>
+        <h3>Generative AI Foundations</h3>
+        <p>Completed a Google Cloud course covering generative AI, large language models, prompt engineering, and responsible AI.</p>
+      </article>
+      <article class="achievement-card reveal stagger-2">
+        <span class="achievement-index">02 / CREDENTIAL</span>
+        <h3>IoT and Cloud Computing</h3>
+        <p>Completed Yonsei University coursework in wireless technologies, connected devices, cloud computing, and IoT systems.</p>
+      </article>
+      <article class="achievement-card reveal stagger-3">
+        <span class="achievement-index">03 / PRACTICE</span>
+        <h3>Responsive Portfolio System</h3>
+        <p>Built and refined a responsive portfolio with accessible navigation, interactive project presentation, themes, and contact workflows.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -2380,10 +2479,10 @@ html.light .site-header::before {
         <h2 class="section-title">Projects</h2>
       </div>
       <div class="project-filters" role="group" aria-label="Filter projects">
-        <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
-        <button class="filter-btn" type="button" data-filter="Frontend" aria-pressed="false">Frontend</button>
-        <button class="filter-btn" type="button" data-filter="UI/UX" aria-pressed="false">UI/UX</button>
-        <button class="filter-btn" type="button" data-filter="Web App" aria-pressed="false">Web App</button>
+        <button class="filter-btn active" type="button" data-filter="all" data-i18n="filters.all" aria-pressed="true">All</button>
+        <button class="filter-btn" type="button" data-filter="Frontend" data-i18n="filters.frontend" aria-pressed="false">Frontend</button>
+        <button class="filter-btn" type="button" data-filter="UI/UX" data-i18n="filters.uiux" aria-pressed="false">UI/UX</button>
+        <button class="filter-btn" type="button" data-filter="Web App" data-i18n="filters.webapp" aria-pressed="false">Web App</button>
       </div>
     </div>
     <div class="project-grid">
@@ -2545,18 +2644,18 @@ html.light .site-header::before {
     </div>
     <form class="contact-form reveal reveal--right" id="contact-form">
       <div class="input-group">
-        <label for="name">Your Name</label>
+        <label for="name" data-i18n="form.name">Your Name</label>
         <input type="text" id="name" name="name" placeholder="Bekzod Rustamov" required>
       </div>
       <div class="input-group">
-        <label for="email">Email Address</label>
+        <label for="email" data-i18n="form.email">Email Address</label>
         <input type="email" id="email" name="email" placeholder="hello@example.com" required>
       </div>
       <div class="input-group">
-        <label for="message">Message</label>
+        <label for="message" data-i18n="form.message">Message</label>
         <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
       </div>
-      <button type="submit" class="btn-primary">Send Message →</button>
+      <button type="submit" class="btn-primary" data-i18n="form.submit">Send Message →</button>
       <div class="form-status" id="form-status" aria-live="polite"></div>
     </form>
   </div>
@@ -2810,6 +2909,29 @@ setActiveNav(location.hash ? location.hash.slice(1) : 'home');
 const toggleBtn=document.getElementById('theme-toggle');
 const paletteBtn=document.getElementById('palette-toggle');
 const html=document.documentElement;
+const languageToggle=document.getElementById('language-toggle');
+const translations={
+  en:{'nav.home':'Home','nav.gallery':'Gallery','nav.about':'About','nav.journey':'Journey','nav.certificates':'Certificates','nav.achievements':'Achievements','nav.projects':'Projects','nav.contact':'Contact','loader.title':'Welcome to Rustamov Bekzod’s Portfolio','loader.subtitle':'Academic profile and professional work','achievements.label':'Milestones','achievements.title':'Selected Achievements','filters.all':'All','filters.frontend':'Frontend','filters.uiux':'UI/UX','filters.webapp':'Web App','form.name':'Your Name','form.email':'Email Address','form.message':'Message','form.submit':'Send Message →'},
+  uz:{'nav.home':'Bosh sahifa','nav.gallery':'Galereya','nav.about':'Men haqimda','nav.journey':'Yo‘lim','nav.certificates':'Sertifikatlar','nav.achievements':'Yutuqlar','nav.projects':'Loyihalar','nav.contact':'Bog‘lanish','loader.title':'Rustamov Bekzod portfoliosiga xush kelibsiz','loader.subtitle':'Akademik profil va professional ishlar','achievements.label':'Bosqichlar','achievements.title':'Tanlangan yutuqlar','filters.all':'Barchasi','filters.frontend':'Frontend','filters.uiux':'UI/UX','filters.webapp':'Web ilova','form.name':'Ismingiz','form.email':'Email manzilingiz','form.message':'Xabar','form.submit':'Xabar yuborish →'}
+};
+function applyLanguage(language){
+  const selected=translations[language]?language:'en';
+  document.documentElement.lang=selected;
+  document.querySelectorAll('[data-i18n]').forEach(element=>{
+    const value=translations[selected][element.dataset.i18n];
+    if(value) element.textContent=value;
+  });
+  if(languageToggle){
+    languageToggle.textContent=selected==='en'?'EN':'UZ';
+    languageToggle.setAttribute('aria-label',selected==='en'?'Switch to Uzbek':'Switch to English');
+    languageToggle.title=selected==='en'?'Switch to Uzbek':'Switch to English';
+  }
+  localStorage.setItem('language',selected);
+}
+if(languageToggle){
+  languageToggle.addEventListener('click',()=>applyLanguage(document.documentElement.lang==='en'?'uz':'en'));
+}
+applyLanguage(localStorage.getItem('language')||'en');
 function getRgb(hex){
   const value=hex.replace('#','');
   return [parseInt(value.slice(0,2),16),parseInt(value.slice(2,4),16),parseInt(value.slice(4,6),16)];
