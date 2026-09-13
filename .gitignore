@@ -1,0 +1,4 @@
+RESEND_API_KEY.txt
+.env
+.env.*
+!.env.example

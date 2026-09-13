@@ -32,7 +32,6 @@ if (form && statusBox) {
       });
 
       const result = await response.json();
-      console.log('Contact response:', result);
 
       if (!response.ok || !result.ok) {
         throw new Error(result.message || 'Unable to send message.');
