@@ -5,12 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Bekzod Rustamov is a front-end developer and UI/UX designer creating modern, responsive, and high-performing web experiences.">
   <meta name="keywords" content="frontend developer, UI/UX designer, portfolio website, web design, JavaScript, HTML, CSS">
+  <meta name="author" content="Rustamov Bekzod">
   <meta property="og:title" content="Bekzod Rustamov | Frontend Developer & UI/UX Designer">
   <meta property="og:description" content="Personal portfolio of Bekzod Rustamov, a frontend developer and UI/UX designer from Samarkand.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="me.jpg">
   <meta name="theme-color" content="#05050a">
   <title>Bekzod Rustamov | Frontend Developer & UI/UX Designer</title>
+  <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Person",
+      "name":"Rustamov Bekzod",
+      "jobTitle":"Frontend Developer and UI/UX Designer",
+      "address":{"@type":"PostalAddress","addressLocality":"Samarkand","addressCountry":"UZ"},
+      "sameAs":["https://github.com/bekzod-cyber1","https://www.instagram.com/rustamov_vvw/"],
+      "knowsAbout":["Frontend Development","UI/UX Design","JavaScript","Responsive Web Design"]
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
@@ -1003,6 +1015,33 @@ html.light .site-header::before {
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:24px;
 }
+.project-filters {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:5px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+.filter-btn {
+  border:1px solid transparent;
+  border-radius:10px;
+  padding:8px 12px;
+  background:transparent;
+  color:var(--muted);
+  font-size:.74rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:color .25s, background .25s, border-color .25s, transform .25s;
+}
+.filter-btn:hover { color:var(--text); transform:translateY(-1px); }
+.filter-btn.active {
+  color:var(--text);
+  background:color-mix(in srgb,var(--accent-text) 16%,transparent);
+  border-color:color-mix(in srgb,var(--accent-text) 34%,transparent);
+}
+.project-card-hidden { display:none; }
 .card {
   background:var(--card);
   border:1px solid var(--border);
@@ -1163,8 +1202,12 @@ html.light .site-header::before {
 .contact-form textarea::placeholder { color:rgba(255,255,255,.35); }
 .contact-form textarea { resize:vertical; min-height:140px; }
 .form-status { min-height:22px; font-size:.88rem; color:#c7d2fe; }
-.form-status.success { color:#4ade80; }
+.form-status.success { color:#4ade80; animation:statusIn .45s cubic-bezier(.22,1,.36,1) both; }
 .form-status.error   { color:#f87171; }
+@keyframes statusIn {
+  from { opacity:0; transform:translateY(5px); }
+  to { opacity:1; transform:none; }
+}
 
 /* ============================================================
    FOOTER
@@ -2336,6 +2379,12 @@ html.light .site-header::before {
         <span class="section-label">My Work</span>
         <h2 class="section-title">Projects</h2>
       </div>
+      <div class="project-filters" role="group" aria-label="Filter projects">
+        <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-btn" type="button" data-filter="Frontend" aria-pressed="false">Frontend</button>
+        <button class="filter-btn" type="button" data-filter="UI/UX" aria-pressed="false">UI/UX</button>
+        <button class="filter-btn" type="button" data-filter="Web App" aria-pressed="false">Web App</button>
+      </div>
     </div>
     <div class="project-grid">
       <article class="card reveal reveal--scale stagger-1"
@@ -2643,6 +2692,24 @@ document.querySelectorAll('.card').forEach(card=>{
     card.style.transition='transform .5s cubic-bezier(.22,1,.36,1)';
     card.style.transform='';
     setTimeout(()=>card.style.transition='',500);
+  });
+});
+
+/* ===== PROJECT FILTERS ===== */
+const filterButtons=document.querySelectorAll('.filter-btn');
+const projectCards=document.querySelectorAll('.project-grid .card[data-tag]');
+filterButtons.forEach(button=>{
+  button.addEventListener('click',()=>{
+    const filter=button.dataset.filter;
+    filterButtons.forEach(item=>{
+      const isActive=item===button;
+      item.classList.toggle('active',isActive);
+      item.setAttribute('aria-pressed',String(isActive));
+    });
+    projectCards.forEach(card=>{
+      const matches=filter==='all'||card.dataset.tag===filter;
+      card.classList.toggle('project-card-hidden',!matches);
+    });
   });
 });
 
